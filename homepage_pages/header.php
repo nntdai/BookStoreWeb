@@ -98,13 +98,18 @@
                 <img src="./Image/shopping-cart.png" alt="">
                 <div class="quantity"><span>0</span></div>
             </div>
-            <div class="user">
-                <img src="./Image/user.png" alt="" id="user_img">
-                <span class="user_name"></span>
-                <ul class="user_dropdown" id="user_dropdown">
-                    <li><a href="#"><span>Đăng nhập</span></a></li>
-                    <li><a href="#"><span>Đăng xuất</span></a></li>
-                    <li><a href="#"><span>Thông tin</span></a></li>
-                </ul>
+            <div class="btn-group" role="group">
+                <div id="btnGroupDrop" data-bs-toggle="dropdown" aria-expanded="false" class="dropdown-toggle">
+                    <img src="./Image/user.png" alt="" id="user_img">
+                    <span class="user_name"></span>
+                </div>
+                <div class="dropdown-menu" aria-labelledby="btnGroupDrop">
+                    <button type="button" class="btn btn-primary mb-1 drop-item" data-bs-toggle="modal" data-bs-target="#frmDangnhapModal" id="frmDangnhap-btn">
+                            Đăng nhập </button>
+                    <button type="button" class="btn btn-primary mb-1 drop-item" data-bs-toggle="modal" data-bs-target="#frmDangkiModal" id="frmDangki-btn">
+                            Đăng kí </button>
+                    <button type="button" class="btn btn-primary mb-1 drop-item" data-bs-toggle="modal" data-bs-target="#thongtinModal" id="thongtin-btn">
+                            Thông tin </button>
+                </div>
             </div>
 </header>
