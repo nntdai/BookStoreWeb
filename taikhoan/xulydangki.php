@@ -7,38 +7,20 @@
     $email = $_POST["email"];
     $sdt = $_POST["sdt"];
     
-    $db_server = "localhost";
-    $db_user = "root";
-    $db_pass = "";
-    $db_name = "doanweb2";
-    $conn = "";
 
-    $conn = mysqli_connect($db_server, 
-                           $db_user, 
-                           $db_pass, 
-                           $db_name);
-
-    if($conn) {
-        mysqli_query($conn, "SET NAMES 'utf8'");
-        $sql = "select * from `taikhoan` where `tendangnhap`='{$username}'";
-        try {
-            $query = mysqli_query($conn, $sql);
-            if(validate($query) == true) {
-                $sql = "insert into `taikhoan`(`tendangnhap`, `matkhau`, `ngaytao`, `quyen`) values('{$username}' , '{$pwd1}', CURRENT_DATE(), 0);";
-                $query = mysqli_query($conn, $sql);
-                echo "<script>
-                    $('#statusModal .modal-header').html('Thành công');
-                    $('#statusModal').modal('show');
-                </script>";
-            }
-        } catch (Exception $e) {
-            echo "Error: " . $e;
-        } finally {
-            $conn -> close();
+    $sql = "select * from `taikhoan` where `tendangnhap`='{$username}'";
+    try {
+        $query = ConnectDatabase::query($sql);
+        if(validate($query) == true) {
+            $sql = "insert into `taikhoan`(`tendangnhap`, `matkhau`, `ngaytao`, `quyen`) values('{$username}' , '{$pwd1}', CURRENT_DATE(), 0);";
+            $query = ConnectDatabase::query($sql);
+            echo "<script>
+                $('#statusModal .modal-header').html('Thành công');
+                $('#statusModal').modal('show');
+            </script>";
         }
-    }
-    else {
-        echo "Could not connected";
+    } catch (Exception $e) {
+        echo "Error: " . $e;
     }
 
     function validate($query) {
