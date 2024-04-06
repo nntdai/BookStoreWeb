@@ -1,5 +1,4 @@
-<?php
-    echo '<header>
+<header>
     <div class="left_header">
         <div class="logo">
             <img src="./Image/iconBookStore.png" alt="">
@@ -108,5 +107,4 @@
                     <li><a href="#"><span>Thông tin</span></a></li>
                 </ul>
             </div>
-</header>';
-?>
+</header>
