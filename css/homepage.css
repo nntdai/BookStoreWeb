@@ -390,14 +390,16 @@ main{
 .dot_slider li.active{
     background-color: #0C92D1;
 }
-.fade {
+
+/* CONFLICT HERE */
+/* .fade {
     animation-name: fade;
     animation-duration: 1.5s;
   }
   @keyframes fade {
     from {opacity: .4}
     to {opacity: 1}
-  }
+  } */
 .discount_wrapper,
 .bookszone_product_wrapper{
     width: 100%;
@@ -613,4 +615,23 @@ main{
 }
 #product_main{
     width: 100%;
+}
+.frmHeader {
+    background-color: #0F3A4E; 
+    color: white;
+}
+.btn-close {
+    position: absolute; 
+    right: calc(var(--bs-modal-header-padding-x));
+}
+.btn.submitBtn {
+    color: white;
+    background-color: #0F3A4E;
+}
+.btn.submitBtn:hover {
+    color: #0D2D3D;
+    background-color: #C8DFEA;
+}  
+.html {
+    position: relative;
 }
