@@ -94,22 +94,23 @@
         <button><img src="./Image/search.png" alt=""></button>
     </div>
     <div class="right_header">
-            <div class="cart">
-                <img src="./Image/shopping-cart.png" alt="">
-                <div class="quantity"><span>0</span></div>
+        <div class="cart">
+            <img src="./Image/shopping-cart.png" alt="">
+            <div class="quantity"><span>0</span></div>
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="./Image/user.png" style="margin-left: 0px;">
+                <!-- <span>Truong</span> -->
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><button type="button" class="mb-1 dropdown-item" data-bs-toggle="modal" data-bs-target="#frmDangnhapModal" id="frmDangnhap-btn">
+                    Đăng nhập </button></li>
+                <li><button type="button" class="mb-1 dropdown-item" data-bs-toggle="modal" data-bs-target="#frmDangkiModal" id="frmDangki-btn">
+                    Đăng kí </button></li>
+                <!-- <li><button type="button" class="mb-1 dropdown-item" data-bs-toggle="modal" data-bs-target="#thongtinModal" id="thongtin-btn">
+                    Thông tin </button></li> -->
+            </ul>
             </div>
-            <div class="btn-group" role="group">
-                <div id="btnGroupDrop" data-bs-toggle="dropdown" aria-expanded="false" class="dropdown-toggle">
-                    <img src="./Image/user.png" alt="" id="user_img">
-                    <span class="user_name"></span>
-                </div>
-                <div class="dropdown-menu" aria-labelledby="btnGroupDrop">
-                    <button type="button" class="btn btn-primary mb-1 drop-item" data-bs-toggle="modal" data-bs-target="#frmDangnhapModal" id="frmDangnhap-btn">
-                            Đăng nhập </button>
-                    <button type="button" class="btn btn-primary mb-1 drop-item" data-bs-toggle="modal" data-bs-target="#frmDangkiModal" id="frmDangki-btn">
-                            Đăng kí </button>
-                    <button type="button" class="btn btn-primary mb-1 drop-item" data-bs-toggle="modal" data-bs-target="#thongtinModal" id="thongtin-btn">
-                            Thông tin </button>
-                </div>
-            </div>
+        </div>
 </header>

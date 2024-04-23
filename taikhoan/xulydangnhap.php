@@ -1,6 +1,5 @@
 <?php
     session_start();
-
     $sql = "select * from `taikhoan` where `tendangnhap`='{$username}'";
     try {
         $query = mysqli_query($conn, $sql);
@@ -12,7 +11,7 @@
             $row = mysqli_fetch_array($query);
             if($row["matkhau"] == $pwd) {
                 $sql = "
-                    select 
+                    select *
                     from taikhoan, quyen, chucnang, quyenchucnang
                     where taikhoan.quyen = quyen.maQuyen and quyen.maQuyen = chucnang.maQuyen and taikhoan.tendangnhap = '{$username}'
                     and tendangnhap = '{$username}'
