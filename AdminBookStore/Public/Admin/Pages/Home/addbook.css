@@ -1,0 +1,12 @@
+#container-addBook
+{
+    float: left;
+    border-style:solid;
+    border-color: black;
+    margin: 20px;
+    padding :20px;
+}
+.form-control
+{
+   
+}
