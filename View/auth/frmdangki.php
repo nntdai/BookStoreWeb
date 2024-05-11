@@ -8,7 +8,9 @@
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="./pages/xulydangki.php" id="frmDangki" method="post">
+        <form id="frmDangki" method="post">
+            <input type="hidden" name="controller" value="auth">
+            <input type="hidden" name="action" value="register">
             <div class="mb-3">
                 <label for="usernameDangki" class="form-label">Username or id <span class="text-danger">*</span> </label>
                 <input type="input" class="form-control" id="usernameDangki" name="username">
@@ -16,7 +18,7 @@
 
             <div class="mb-3">
                 <label for="tenkhachhang" class="form-label">Họ và tên <span class="text-danger">*</span></label>
-                <input type="input" class="form-control" id="tenkhachhang" name="tenkhachhang">
+                <input type="input" class="form-control" id="tenkhachhang" name="hoTen">
             </div>
 
             <div class="mb-3">
@@ -48,20 +50,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  $(document).ready(function(){
-    $('#requestDangki').on('click', function(e) {
-      e.preventDefault();
-
-      $.ajax({
-        url: './pages/xulydangki.php',
-        type: 'post',
-        data: $("#frmDangki").serialize(),
-        success: function(response) {
-          $('#response').html(response);
-        }
-      });
-    })
-  });
-</script>

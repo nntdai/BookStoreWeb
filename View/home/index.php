@@ -12,10 +12,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- link jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="./css/carousel.css">
 </head>
 <body>
     <!-- Header -->
-    <?php   require("./homepage_pages/header.php"); ?>
+    <?php  require("./homepage_pages/header.php"); ?>
 
     <!-- Body -->
     <?php require("./homepage_pages/body.php"); ?> 
@@ -24,10 +26,13 @@
     <?php require("./homepage_pages/footer.php"); ?> 
 
     <?php 
-        include("./taikhoan/frmdangnhap.php");
-        include("./taikhoan/frmdangki.php");
-        include("./taikhoan/statusModal.php"); 
+        include("View/auth/frmdangnhap.php");
+        include("View/auth/frmdangki.php");
+        include("View/auth/statusModal.php");
     ?>
 </body>
-<script src="./js/homepage.js"></script>
+    <script src="./js/homepage.js"></script>
+    <script src="./js/authentication.js"></script>
+    <script src="./js/carousel.js"></script>
+    <script src="./js/phantrangSanPham.js"></script>
 </html>

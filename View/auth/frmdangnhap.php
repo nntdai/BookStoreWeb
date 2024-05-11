@@ -9,7 +9,10 @@
       </div>
       
       <div class="modal-body">
-        <form action="./pages/xulydangnhap.php" id="frmDangnhap" method="POST" class="mb-3">
+        <form id="frmDangnhap" method="POST" class="mb-3">
+            <!-- xac dinh controller va action -->
+            <input type="hidden" name="controller" value="auth">
+            <input type="hidden" name="action" value="login">
             <div class="mb-3">
                 <label for="usernameDangnhap" class="form-label">Username or id: </label>
                 <input type="input" class="form-control" id="usernameDangnhap" name="username">
@@ -29,9 +32,3 @@
     </div>
   </div>
 </div>
-
-<script>
-    $(document).ready(function(){
-        
-    });
-</script>
