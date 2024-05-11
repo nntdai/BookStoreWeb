@@ -4,82 +4,82 @@ angle_down.addEventListener("click", function(event) {
     let dropdown_content = document.getElementById('dropdown_content');
     dropdown_content.classList.toggle('hidden');
 })
-
-//Hover danh mục thì sẽ hiện ra chủ đề
-window.addEventListener('DOMContentLoaded', function() {
-  let categories = document.querySelectorAll('.category');
-  let contents = document.querySelectorAll('.content');
-  categories.forEach(function(category, index) {
-    category.addEventListener('mouseover', function() {
-      hideAllContents();
-      contents[index].classList.add('active');
-    });
-
-    category.addEventListener('mouseleave', function() {
-      contents[index].classList.remove('active');
-    });
-  });
-
-  function hideAllContents() {
-    contents.forEach(function(content) {
-      content.classList.remove('active');
-    });
-  }
-});
-
-
-//Click vào chủ đề để lọc sách ở các vùng sách tiếng việt và nước ngoài
-window.addEventListener('DOMContentLoaded', function() {
-  var listItems = document.querySelectorAll('.bookszoneproduct_header .list li');
-
-  listItems.forEach(function(listItem) {
-    listItem.addEventListener('click', function() {
-      // Loại bỏ hiệu ứng box-shadow khỏi tất cả các phần tử
-      listItems.forEach(function(item) {
-        item.style.boxShadow = 'none';
-      });
-
-      // Áp dụng hiệu ứng box-shadow vào phần tử được click
-      this.style.boxShadow = '0 3px';
-    });
-  });
-});
-
-//Click vào img Search sẽ hiện ra input
-let Btn_search = document.getElementById('btn_search');
-Btn_search.addEventListener('click', function(){
-  let Input_search = document.getElementById('search');
-  Input_search.classList.toggle('block');
+// Ẩn/Hiện dropdown user
+let user_img = document.getElementById('user_img');
+user_img.addEventListener("click", function(event) {
+    let user_dropdown = document.getElementById('user_dropdown');
+    user_dropdown.classList.toggle('hidden');
 })
 
-$(window).on('resize', function() {
-  //neu chieu rong cua trinh duyet co width: 576px thi reload lai trang
-  if (window.matchMedia('(max-width: 576px)').matches) {
-      location.reload();
+/*----------------------------Banner_Slide----------------------------*/
+let slideIndex = 1;
+showSlides(slideIndex);
+// Thumbnail image controls
+setInterval(function() {
+  slideIndex++;
+  showSlides(slideIndex);
+}, 5000);
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("item");
+  let dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
   }
-});
-function updateAndShowDetailModal(product){
-  let modal = $("#productModal");
-  modal.find(".productName").text(product.ten);
-  modal.find(".productPrice").text(product.giagoc+"đ");
-  modal.find(".productDescription").text(product.moTa);
-  modal.find(".productImage").attr("src", product.url);
-  modal.find(".productAuthor").text(product.hoTen);
-  modal.find(".productTranslator").text(product.tenNguoiDich);
-  modal.find(".productPublisher").text(product.tenNXB);
-  modal.find(".productPublishYear").text(product.namXB);
-  modal.find(".productCategory").text(product.tenTheLoai);
-  modal.find(".productPageCount").text(product.soTrang);
-  modal.find(".productWeight").text(product.trongLuong+" gram");
-  modal.find(".productDimension").text(product.kichThuocBaoBi);
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "grid";
+  dots[slideIndex-1].className += " active";
+}
+/*----------------------------Slider cua khuyen mai----------------------------*/
+let discount_slider = document.querySelector('.discount_wrapper .product_wrapper .list');
+let product = document.querySelectorAll('.discount_wrapper .product_wrapper .list .product');
+let next = document.getElementById('next');
+let prev = document.getElementById('prev');
 
-    //update event add to cart
-    modal.find("#btn_addToCart").off("click").click(function(){
-        addToCart(product);
-        $("#productModal").modal("hide");
-    });
+let lengthproduct = product.length - 1;
+let productWidth = product[0].offsetWidth; // Assume all products have the same width
+let active = 0;
 
-  modal.modal("show");
+next.onclick = function(){
+    active = active + 1 <= lengthproduct/4 ? active + 1 : 0;
+    reloadSlider();
+}
+prev.onclick = function(){
+    active = active - 1 >= 0? active - 1 : lengthproduct;
+    reloadSlider();
+}
+let refreshInterval = setInterval(()=> {next.click()}, 3000);
+function reloadSlider(){
+  discount_slider.style.transform = `translateX(-${active * discount_slider.offsetWidth}px)`;
+    clearInterval(refreshInterval);
+    refreshInterval = setInterval(()=> {next.click()}, 3000);
+}
+
+/*----------------------------Slider cua sach tieng viet----------------------------*/
+let vietnam_product_slider = document.querySelector('.vietnam_product .product_wrapper .list');
+let vietnam_product = document.querySelectorAll('.vietnam_product .product_wrapper .list .product');
+let vietnamzone_next = document.getElementById('vietnam_next');
+let vietnamzone_prev = document.getElementById('vietnam_prev');
+
+let vietnamproduct_length = vietnam_product.length - 1;
+let vietnamzone_productWidth = vietnam_product[0].offsetWidth; // Assume all products have the same width
+let vietnamzone_active = 0;
+
+let vietnamzone_refreshInterval = setInterval(()=> {next.click()}, 3000);
+vietnamzone_next.onclick = function(){
+    vietnamzone_active = vietnamzone_active + 1 <= vietnamproduct_length/4 ? vietnamzone_active + 1 : 0;
+    vietnamzone_reloadSlider();
+}
+vietnamzone_prev.onclick = function(){
+    vietnamzone_active = vietnamzone_active - 1 >= 0? vietnamzone_active - 1 : vietnamproduct_length;
+    vietnamzone_reloadSlider();
 }
 
 function addToCart(product){
