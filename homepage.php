@@ -1,3 +1,6 @@
+<?php 
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,6 +60,10 @@
             opacity: 1;
         }
 
+        .paginator_collapse .pagination{
+            user-select: none;
+        }
+
     </style>
 </head>
 <body>
@@ -77,9 +84,13 @@
 </body>
 <script src="./js/homepage.js"></script>
 <script>
-    $(window).on("resize", function() {
-        window.location.reload();
-    });
+
+    //FIG: responesive khi man hinh nho phai reload lai trang
+    // $(window).on("resize", function() {
+    //     window.location.reload();
+    // });
+
+
     $(document).ready(function() {
         let sanPhamCarousel = document.querySelectorAll('.sanpham_carousel');
         if (window.matchMedia('(min-width: 576px)').matches) {
@@ -109,6 +120,16 @@
                         $(element).find('.carousel-inner').animate({scrollLeft: scrollPosition}, 500);
                     }
                 });
+                setInterval(function() {
+                    if(scrollPosition < carouselWidth - carouselItemWidth) {
+                        scrollPosition += carouselItemWidth;
+                        $(element).find('.carousel-inner').animate({scrollLeft: scrollPosition}, 500);
+                    }
+                    else {
+                        scrollPosition = 0;
+                        $(element).find('.carousel-inner').animate({scrollLeft: scrollPosition}, 500);
+                    }
+                }, 3000);
             });
         } else {
             $(sanPhamCarousel).each(function(index, element) {
@@ -116,9 +137,7 @@
             });
         }
         
-        setInterval(function() {
-            $("#khuyenmai_carousel").find('.carousel-control-next').click();
-        }, 3000);
+        
     });
 </script>
 </html>

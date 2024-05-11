@@ -9,8 +9,8 @@
         <h5 class='modal-title text-center' id='statusLabel'>Thông báo</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        Status
+      <div class="modal-body" id="statusMessage">
+        message
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Xác nhận</button>

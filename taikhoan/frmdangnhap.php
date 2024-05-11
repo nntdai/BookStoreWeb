@@ -9,7 +9,7 @@
       </div>
       
       <div class="modal-body">
-        <form action="./pages/xulydangnhap.php" id="frmDangnhap" method="POST" class="mb-3">
+        <form action="xuly/xulydangnhap.php" id="frmDangnhap" method="POST" class="mb-3">
             <div class="mb-3">
                 <label for="usernameDangnhap" class="form-label">Username or id: </label>
                 <input type="input" class="form-control" id="usernameDangnhap" name="username">
@@ -32,6 +32,29 @@
 
 <script>
     $(document).ready(function(){
-        
+        $("#frmDangnhap").submit(function(e){
+            e.preventDefault();
+            console.log("submitting")
+            $.ajax({
+                url: "xuly/xulydangnhap.php",
+                type: "post",
+                data: $("#frmDangnhap").serialize(),
+                success: function(response){
+                  let data = JSON.parse(response);
+                  
+                  if (data.status == "success") {
+                    if (data.allowedToAccessAdminPage == 1){
+                      window.location.href = "admin.php";
+                    }
+                    else location.reload();
+                  } else {
+                    $("#statusLabel").text("Đăng nhập thất bại");
+                    $("#statusMessage").text(data.message);
+                    $("#statusModal").modal("show");
+                  }
+                  
+                }
+            });
+        });
     });
 </script>

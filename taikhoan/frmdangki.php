@@ -55,7 +55,7 @@
       e.preventDefault();
 
       $.ajax({
-        url: './pages/xulydangki.php',
+        url: '../xuly/xulydangki.php',
         type: 'post',
         data: $("#frmDangki").serialize(),
         success: function(response) {

@@ -104,12 +104,31 @@
                 <!-- <span>Truong</span> -->
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
-                <li><button type="button" class="mb-1 dropdown-item" data-bs-toggle="modal" data-bs-target="#frmDangnhapModal" id="frmDangnhap-btn">
+                <?php 
+                if (isset($_SESSION["nguoidung"])) echo "
+                <li><button type='button' class='mb-1 dropdown-item' id='btn_DangXuat'>
+                    Đăng xuất </button></li>
+                <script>
+                    $(document).ready(function(){
+                        $('#btn_DangXuat').on('click', function(){
+                            $.ajax({
+                                url: 'xuly/xulydangxuat.php',
+                                type: 'post',
+                                success: function(response){
+                                    location.reload();
+                                }
+                            });
+                        });
+                    });
+                </script>
+                "; 
+                else echo "
+                <li><button type='button' class='mb-1 dropdown-item' data-bs-toggle='modal' data-bs-target='#frmDangnhapModal' id='frmDangnhap-btn'>
                     Đăng nhập </button></li>
-                <li><button type="button" class="mb-1 dropdown-item" data-bs-toggle="modal" data-bs-target="#frmDangkiModal" id="frmDangki-btn">
+                <li><button type='button' class='mb-1 dropdown-item' data-bs-toggle='modal' data-bs-target='#frmDangkiModal' id='frmDangki-btn'>
                     Đăng kí </button></li>
-                <!-- <li><button type="button" class="mb-1 dropdown-item" data-bs-toggle="modal" data-bs-target="#thongtinModal" id="thongtin-btn">
-                    Thông tin </button></li> -->
+                ";
+                ?>
             </ul>
             </div>
         </div>

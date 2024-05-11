@@ -1,4 +1,5 @@
 <?php
+    require_once("C:/xampp/htdocs/bookstoreweb/util/ConnectDatabase.php");
     $emailReg = "/\w{1,}@[A-z]{2,}\.[a-z]{2,}$/";
     $sdtReg = "/0[0-9]{9,10}/";
     $username = $_POST["username"];
