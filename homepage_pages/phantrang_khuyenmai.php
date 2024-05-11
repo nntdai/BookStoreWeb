@@ -1,5 +1,6 @@
 <?php
-    require("C:/xampp/htdocs/bookstoreweb/util/DatabaseConnection.php");
+
+    require_once("../util/DatabaseConnection.php");
     if (isset($_POST["discount_page"])) {
         $ITEM_PER_PAGE = 8;
         $MAX_PAGINATOR_PER_PAGE = 5; 

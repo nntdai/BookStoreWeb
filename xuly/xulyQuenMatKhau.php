@@ -1,4 +1,13 @@
 <?php
+
+
+  //giu lai de tham khao
+
+
+
+
+
+
     //di den database de kiem tra email hoac so dien thoai co ton tai khong
     //neu ton tai thi gui email chua ma xac nhan
     //neu khong ton tai thi thong bao loi

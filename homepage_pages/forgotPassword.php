@@ -1,4 +1,11 @@
 <?php
+
+
+    //------------------------------------------
+    //FILE nay de test chuc nang quen mat khau
+    //------------------------------------------
+
+
     include_once("../util/DatabaseConnection.php");
     function sendOTP($email, $otp, $otp_expiry, $username) {
         //send OTP to email
