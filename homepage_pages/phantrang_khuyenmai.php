@@ -27,9 +27,7 @@
             $response["end_page"] = (int)$end_page;
             $response["last_page"] = (int)$last_page;
             echo json_encode($response);
-            
-        }
-        
+        } 
     }
 ?>
 
