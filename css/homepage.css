@@ -68,65 +68,73 @@ header{
     z-index: 2;
 }
 .dropdown_content.hidden{
-    display: inline-block;
+    display: flex;
 }
-.dropdown_content .content{
+.categories{
+    width: 30%;
+    height: auto;
+}
+.categories ul{
     width: 100%;
 }
-.content .index{
+.categories li{
+    width: 100%;
+    height: auto;
+    padding: 5px;
+    list-style-type: none;
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    line-height: 3rem;
-    padding: 10px;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 10px 10px 0;
 }
-.content p{
-    font-weight: 400;
-    font-size: 1rem;
-}
-.content img{
-    margin-top: 1.25rem;
-    width: 2vh;
-    height: 2vh;
-}
-.left_content:hover{
+.categories li:hover{
     cursor: pointer;
     background-color: #D9D9D9;
     transition: all 0.5s ease;
 }
-.index_content{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-}
-.left_content{
-    width: 25%;
-    height: 50px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-.right_content{
-    width: 75%;
-    display: none;
-    height: auto;
-    flex-direction: row;
-    padding: 5px;
-    position: relative;
-}
-.right_content a{
+.categories a{
     text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
     color: black;
 }
-#left_content_1:hover + .right_content,
-#left_content_2:hover + .right_content,
-#left_content_3:hover + .right_content,
-.right_content:hover{
+
+.categories a:visited{
+    color: black;
+}
+.categories img{
+    width: 2vh;
+    height: 2vh;
+}
+.categories li:hover + .content,
+.content:hover{
     display: inline-block;
 }
-.right_content table{
+.content{
+    width: 70%;
+    display: none;
+}
+.content.active{
+    display: block;
+}
+
+.content table{
     width: 100%;
+    border-collapse: separate;
+    border-spacing: 10px;
+}
+.content table tr th{
     text-align: center;
+}
+.content table tr td{
+    text-align: center;
+}
+.content table tr td a{
+    color: black;
+    text-decoration: none;
+}
+.content table tr td a:visited{
+    color: black;
 }
 .center_header{
     position: relative;
@@ -153,6 +161,7 @@ header{
     align-items: center;
     outline: none;
     border: none;
+    cursor: pointer;
 }
 .center_header img{
     position: inherit;
@@ -215,7 +224,7 @@ header{
     transition: all .5s ease;
 }
 .right_header .user .user_dropdown.hidden{
-    display: inline-block;
+    display: block;
 }
 .user_dropdown li,
 .user_dropdown span{
@@ -318,7 +327,6 @@ main{
 .slide_wrapper .slide{
     position: relative;
     width: 70%;
-    background-color: #0C92D1;
 }
 .slide .list{
     width: 100%;
@@ -390,18 +398,17 @@ main{
 .dot_slider li.active{
     background-color: #0C92D1;
 }
-
-/* CONFLICT HERE */
-/* .fade {
+.fade {
     animation-name: fade;
     animation-duration: 1.5s;
   }
   @keyframes fade {
     from {opacity: .4}
     to {opacity: 1}
-  } */
+  }
 .discount_wrapper,
-.bookszone_product_wrapper{
+.vietzone_product_wrapper,
+.engzone_product_wrapper{
     width: 100%;
     height: 600px;
     display: flex;
@@ -455,19 +462,14 @@ main{
     display: flex;
     transition: transform 0.5s ease-in-out;
     gap: 2px;
-    /* flex -> grid khi mà người dùng click vào nút xem thêm, còn kh thì vẫn để flex để nó có thể tự động chuyện slide product*/
-    /* display: grid;
-    grid-template-columns: repeat(4,1fr);
-    row-gap: 15px;
-    column-gap: 10px; */
 }
 .product_wrapper .product{
     padding: 15px 0 10px 0;
     position: relative;
     width: 100%;
     height: 100%;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: auto auto auto auto auto;
     justify-content: center;
     align-items: center;
     background-color: white;
@@ -507,12 +509,24 @@ main{
     height: 1.25rem;
 }
 .product img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 35.5vh;
     height: 30vh;
 }
+.product p,
+.product .discount_price,
+.product .price,
+.product .quantity{
+    text-align: center;
+}
 .product p{
+    white-space: nowrap; /* Ngăn các từ trong tên sản phẩm xuống dòng */
+    overflow: hidden; /* Ẩn phần vượt quá kích thước giới hạn */
+    text-overflow: ellipsis; /* Hiển thị dấu chấm (...) khi vượt quá kích thước giới hạn */
     font-weight: 500;
-    font-size: 1.25rem;
+    font-size: 20px;
     line-height: 1.625rem;
     margin: 5px;
 }
@@ -569,6 +583,17 @@ main{
     font-weight: 700;
     cursor: pointer;
 }
+#Morebtn,
+#Morebtn_vie,
+#Morebtn_eng{
+    position: relative;
+}
+#Shortenbtn,
+#Shortenbtn_vie,
+#Shortenbtn_eng{
+    position: absolute;
+    display: none;
+}
 .vietnam_product,
 .eng_product{
     position: relative;
@@ -608,6 +633,7 @@ main{
 .bookszoneproduct_header .list li a{
     text-decoration: none;
     color: black;
+    cursor: pointer;
 }
 .bookszoneproduct_header .list li:hover{
     color: black;
@@ -634,4 +660,62 @@ main{
 }  
 .html {
     position: relative;
+}
+
+
+/* ------------------------------RESPONSIVE------------------------------ */
+@media screen and (max-width: 800px) {
+    .left_header{
+        margin-left: 0;
+        margin-right: 20px;
+    }
+    .left_header .logo{
+        margin-right: 20px;
+    }
+    .center_header{
+        width: 40%;
+    }
+    .center_header input{
+        display: none;
+        margin-left: 20px;
+    }.center_header input.block{
+        display: block;
+    }
+    .slide .item #img_1{
+        width: 50vh;
+    }
+    .slide .item #img_2,
+    .slide .item #img_3{
+        width: 32vh;
+    }
+    .about_us img,
+    .support_customer img{
+        width: 20vh;
+        height: 10vh;
+    }
+}
+@media screen and (max-width: 600px) {
+    .left_header{
+        margin-left: 0;
+        margin-right: 40px;
+    }
+    .dropdown_content{
+        width: 100%;
+    }
+    .slide .item #img_1{
+        width: 40vh;
+    }
+    .slide .item #img_2,
+    .slide .item #img_3{
+        width: 20vh;
+    }
+    .vietzone_product_wrapper,
+    .engzone_product_wrapper{
+        margin: 50px 0 50px 0;
+    }
+    .about_us img,
+    .support_customer img{
+        width: 15vh;
+        height: 10vh;
+    }
 }
