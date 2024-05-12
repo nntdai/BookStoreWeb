@@ -36,10 +36,21 @@
 			padding-bottom: 40px;
 			background-color: #f5f5f5;
 		}
+
+        #loading {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+            background: rgba(0,0,0,0.3) url('Image/loading.gif') no-repeat center center;
+            background-size: 10%;
+        }
 	</style>
   </head>
 <body class="text-center">
-    
+    <div id="loading"></div>
 	<main>
         <img class="mb-4" src="Image/iconBookStore.png" alt="" height="160" class="mb-1">
         <form id="form" class="text-start">
@@ -59,9 +70,16 @@
     </main>
     
     <script>
+        $("#loading").hide();
+        $(document).ajaxStart(function() {
+            $("#loading").show();
+        }).ajaxStop(function() {
+            $("#loading").hide();
+        });
         $(document).ready(function() {
             $("#form").submit(function(e) {
                 e.preventDefault();
+                
                 $.ajax({
                     type: "POST",
                     url: "index.php",
@@ -71,8 +89,7 @@
                         try {
                             data = JSON.parse(response);
                             if (data["status"] == "success") {
-                                alert("Reset password successfully");
-                                window.location.href = "index.php";
+                                alert("Reset password successfully, please close this tab and login again!");
                             } else {
                                 alert(data["message"]);
                             }

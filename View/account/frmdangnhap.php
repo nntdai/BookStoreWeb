@@ -24,7 +24,7 @@
         </form>
         <div class="other-actions d-flex flex-column align-items-center mb-3">
             <button type="submit" class="btn submitBtn mb-3" form="frmDangnhap">Đăng nhập</button>
-            <a class="row" href="forgotPassword.php">Quên mật khẩu?</a>
+            <a class="row" href="forgotPassword.php" target="_blank">Quên mật khẩu?</a>
             <span>Bạn chưa có tài khoản?</span>
             <a class="row" href="" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#frmDangkiModal">Đăng kí ngay</a>
         </div>

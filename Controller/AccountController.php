@@ -145,6 +145,7 @@ class AccountController {
         unset($_SESSION["username"]);
         unset($_SESSION["maVaiTro"]);
         unset($_SESSION["allowedToAccessAdminPage"]);
+        unset($_SESSION["logined"]);
     }
 
     public function resetPassword() { // Xử lý quên mật khẩu
