@@ -129,14 +129,13 @@ echo'           </div>
         <div id="demo" class="carousel container-lg sanpham_carousel mb-3" data-bs-ride="carousel"> 
             <div class="carousel-inner">';
 ?>
-                <div class="carousel-item active" id="list_vie">
+                <div class="carousel-item active " id="list_vie">
 <?php
                     //Lấy các sản phẩm thuộc sách tiếng việt
                     $Sach_query = "SELECT * FROM sach;";
                     $Sach_result = mysqli_query($con, $Sach_query);
                     if (mysqli_num_rows($Sach_result) > 0){
                         while ($row_Sach = mysqli_fetch_assoc($Sach_result)){
-                            // $id_TV = $row_Sach['idNgonNgu'];
                             $id_Sach = $row_Sach['id'];
                             $TiengViet = '1';
                             $resultt = strcmp($row_Sach['idNgonNgu'],$TiengViet);
@@ -163,7 +162,7 @@ echo'           </div>
                         }
                     }
 ?>
-            </div>
+                </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev" id="km_prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
