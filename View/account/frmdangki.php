@@ -9,7 +9,7 @@
       </div>
       <div class="modal-body">
         <form id="frmDangki" method="post">
-            <input type="hidden" name="controller" value="auth">
+            <input type="hidden" name="controller" value="account">
             <input type="hidden" name="action" value="register">
             <div class="mb-3">
                 <label for="usernameDangki" class="form-label">Username or id <span class="text-danger">*</span> </label>

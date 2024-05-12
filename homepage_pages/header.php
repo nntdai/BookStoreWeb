@@ -107,7 +107,7 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
                 <?php 
-                if (isset($_SESSION["username"])) { ?>
+                if (isset($_SESSION["logined"]) && $_SESSION["logined"] == true) { ?>
                     <li>Hello, <?php echo $_SESSION["username"]; ?></li>
                     <li><button type='button' class='mb-1 dropdown-item' id='btn_DangXuat'>
                         Đăng xuất 

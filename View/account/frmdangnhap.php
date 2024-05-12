@@ -11,7 +11,7 @@
       <div class="modal-body">
         <form id="frmDangnhap" method="POST" class="mb-3">
             <!-- xac dinh controller va action -->
-            <input type="hidden" name="controller" value="auth">
+            <input type="hidden" name="controller" value="account">
             <input type="hidden" name="action" value="login">
             <div class="mb-3">
                 <label for="usernameDangnhap" class="form-label">Username or id: </label>
@@ -24,7 +24,7 @@
         </form>
         <div class="other-actions d-flex flex-column align-items-center mb-3">
             <button type="submit" class="btn submitBtn mb-3" form="frmDangnhap">Đăng nhập</button>
-            <a class="row" href="" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#frmQuenMatkhau">Quên mật khẩu?</a>
+            <a class="row" href="forgotPassword.php">Quên mật khẩu?</a>
             <span>Bạn chưa có tài khoản?</span>
             <a class="row" href="" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#frmDangkiModal">Đăng kí ngay</a>
         </div>

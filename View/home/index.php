@@ -26,9 +26,9 @@
     <?php require("./homepage_pages/footer.php"); ?> 
 
     <?php 
-        include("View/auth/frmdangnhap.php");
-        include("View/auth/frmdangki.php");
-        include("View/auth/statusModal.php");
+        include("View/account/frmdangnhap.php");
+        include("View/account/frmdangki.php");
+        include("View/account/statusModal.php");
     ?>
 </body>
     <script src="./js/homepage.js"></script>

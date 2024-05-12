@@ -25,6 +25,30 @@ function setAccountModal(account_id) {
         }
     });
 }
+
+function deleteAccount(account_id) {
+    var account_id = $(this).attr("matk");
+    if(confirm("Xac nhan xoa")) {
+        $.ajax({
+            type: "POST",
+            url: "admin.php",
+            data: {
+                controller: "account",
+                action: "delete",
+                acid: account_id
+            },
+            success: function(data) {
+                data = JSON.parse(data);
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    var row = $("#account_table").find("tr[matk='" + account_id + "']");
+                    row.remove();
+                }
+            }
+        });
+    }
+}
 //dung jquery de submit form ajax
 $(document).ready(function(){
     $("#addAccountForm").submit(function(e){
@@ -89,36 +113,5 @@ $(document).ready(function(){
             }
         });
     });
-
-    $("#account_table").on("click", ".btn-danger", function(){
-        var account_id = $(this).attr("matk");
-        if(confirm("Xac nhan xoa")) {
-            $.ajax({
-                type: "POST",
-                url: "admin.php",
-                data: {
-                    controller: "account",
-                    action: "delete",
-                    acid: account_id
-                },
-                success: function(data) {
-                    data = JSON.parse(data);
-                    if (data.error) {
-                        alert(data.error);
-                    } else {
-                        var row = $("#account_table").find("tr[matk='" + account_id + "']");
-                        row.remove();
-                    }
-                }
-            });
-        }
-    });
-
-    $("#account_table").on("click", ".btn-success", function(){
-        var account_id = $(this).attr("matk");
-        setAccountModal(account_id);
-        $("#exampleModal").modal("show");
-    });
-
     
 });
