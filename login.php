@@ -47,12 +47,12 @@
             <input type="hidden" name="controller" value="account">
             <input type="hidden" name="action" value="login">
             <div class="form-floating">
-                <input type="text" class="form-control mb-3" id="floatingInput" placeholder="Username" name="username">
-                <label for="floatingInput">Username</label>
+                <input type="text" class="form-control mb-3" id="floatingInput" placeholder="Số điện thoại" name="soDienThoai">
+                <label for="floatingInput">Số điện thoại</label>
             </div>
             <div class="form-floating">
                 <input type="password" class="form-control mb-3" id="floatingPassword" placeholder="Password" name="pwd">
-                <label for="floatingPassword">Password</label>
+                <label for="floatingPassword">Mật khẩu</label>
             </div>
 
             <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
