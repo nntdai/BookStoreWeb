@@ -43,8 +43,8 @@ $(document).ready(function(){
         success: function(response) {
             let data = JSON.parse(response);
             if (data.status == "success") {
-                $("#statusLabel").text("Đăng kí thành công");
-                $("#statusMessage").text(data.message);
+                $("#statusLabel").text("Thành công");
+                $("#statusMessage").text("Đăng kí thành công");
                 $("#statusModal").modal("show");
             } else {
                 $("#statusLabel").text("Đăng kí thất bại");

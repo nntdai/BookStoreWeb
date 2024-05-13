@@ -1,6 +1,6 @@
 
 <!-- Modal -->
-<div class="modal fade" id="frmDangnhapModal" tabindex="-1" aria-hidden="true">
+<div class="modal" id="frmDangnhapModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header frmHeader">

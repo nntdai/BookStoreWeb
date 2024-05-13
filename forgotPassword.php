@@ -54,8 +54,8 @@
 	<main>
         <img class="mb-4" src="Image/iconBookStore.png" alt="" height="160" class="mb-1">
         <form id="form" class="text-start">
-            <label for="username" class="form-label">Tên đăng nhập</label>
-            <input type="text" class="form-control mb-3" name="username" placeholder="Username" required>
+            <label for="soDienThoai" class="form-label">Số điện thoại</label>
+            <input type="text" class="form-control mb-3" name="soDienThoai" placeholder="Số điện thoại" required>
             <label for="password" class="form-label">Nhập mật khẩu mới</label>
             <input type="password" class="form-control mb-3" name="password" placeholder="New password" required>
             <label for="repassword" class="form-label">Nhập lại mật khẩu</label>

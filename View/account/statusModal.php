@@ -6,7 +6,7 @@
   Launch statusModal
 </button>
 <!-- Modal -->
-<div class="modal fade modal-sm" id="statusModal" tabindex="-1" aria-labelledby="statusLabel" aria-hidden="true">
+<div class="modal modal-sm" id="statusModal" tabindex="-1" aria-labelledby="statusLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">

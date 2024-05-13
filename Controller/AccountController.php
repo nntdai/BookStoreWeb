@@ -109,8 +109,15 @@ class AccountController {
     }
 
     public function register() {
+        //kiem tra sdt co ton tai khong
+        $AccountModel = new AccountModel();
+        $result = $AccountModel->checkUsernameExist($_POST["soDienThoai"]);
+        if ($result) {
+            echo json_encode(array("status" => "fail", "message" => "Username existed"));
+            return;
+        }
         $error = $this->validateRegister();
-        if ($error) {
+        if ($error != "") {
             echo json_encode(array("status" => "fail", "message" => $error));
             return;
         }
@@ -135,25 +142,21 @@ class AccountController {
         $hoTen = $_POST["hoTen"];
         $message = "";
 
-        if(preg_match($sdtReg, $soDienThoai) == false) {
-            $message .= "Invalid phone number;";
-            return false;
-        }
-        if(preg_match($emailReg, $email) == false) {
-            $message .= "Invalid email;";
-            return false;
-        }
         if($pwd1 == "" || $email == "" || $hoTen == "") {
             $message .= "Empty field;";
-            return false;
         }
         else {
             if($pwd1 != $pwd2) {
                 $message .= "Password not match;";
-                return false;
+            }
+            if(preg_match($sdtReg, $soDienThoai) == false) {
+                $message .= "Invalid phone number;";
+            }
+            if(preg_match($emailReg, $email) == false) {
+                $message .= "Invalid email;";
             }
         }
-        return true;
+        return $message;
     }
 
     public function logout() {
