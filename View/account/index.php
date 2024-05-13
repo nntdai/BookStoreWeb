@@ -1,7 +1,3 @@
-<?php
-    include_once("Model/M_Role.php");
-    $roleList = (new Model_Role())->getRoleList();
-?>
 <h2>Danh sach hoc sinh</h2>
 <!-- form add account -->
 <form method="post" id="addAccountForm">
@@ -28,15 +24,14 @@
     </thead>
     <tbody>
         <?php foreach($accountList as $account): ?>
-            <tr matk="<?= $account->id ?>">
-                <td><?= $account->id ?></td>
-                <td><?= $account->username ?></td>
+            <tr soDienThoai="<?= $account->soDienThoai ?>">
+                <td><?= $account->soDienThoai ?></td>
                 <td><?= $account->email ?></td>
-                <td><?= $account->roleId ?></td>
-                <td><?= $account->status ?></td>
+                <td><?= $account->idChucVu  ?></td>
+                <td><?= $account->status  ?></td>
                 <td>
-                    <button class="btn btn-success" onclick="setAccountModal(<?= $account->id ?>)"><i class="fa-solid fa-pen-to-square"></i></button>
-                    <button class="btn btn-danger" onclick="deleteAccount(<?= $account->id?>)"><i class="fa-solid fa-trash"></i></button>  
+                    <button class="btn btn-success" onclick="setAccountModal(<?= $account->soDienThoai  ?>)"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <button class="btn btn-danger" onclick="deleteAccount(<?= $account->soDienThoai  ?>)"><i class="fa-solid fa-trash"></i></button>  
                 </td>
             </tr>
         <?php endforeach; ?>
@@ -68,9 +63,8 @@ Launch demo modal
                     <input type="text" name="email" class="form-control">
                     <label class="form-label fw-bold"> Role: </label>
                     <select class="form-select" name="role">
-                        <?php foreach($roleList as $role): ?>
-                            <option value="<?= $role->id ?>"><?= $role->name ?></option>
-                        <?php endforeach; ?>
+                        <option value="1">Admin</option>
+                        <option value="2">User</option>
                     </select>
 
                     <label class="form-label fw-bold"> Status: </label>

@@ -119,7 +119,7 @@
             <ul class="dropdown-menu dropdown-menu-end">
                 <?php 
                 if (isset($_SESSION["user"])) { ?>
-                    <li>Hello, <?php echo $_SESSION["user"]->getUsername(); ?></li>
+                    <div>Hello, <?php echo $_SESSION["user"]->hoTen; ?></div>
                     <li><button type='button' class='mb-1 dropdown-item' id='btn_DangXuat'>
                         Đăng xuất 
                     </button></li>

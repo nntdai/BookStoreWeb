@@ -1,4 +1,10 @@
 
+
+//chua sua theo db moi
+
+
+
+
 $("#navAccount").addClass("active");
 
 function setAccountModal(account_id) {
@@ -27,7 +33,7 @@ function setAccountModal(account_id) {
 }
 
 function deleteAccount(account_id) {
-    var account_id = $(this).attr("matk");
+    var account_id = $(this).attr("soDienThoai");
     if(confirm("Xac nhan xoa")) {
         $.ajax({
             type: "POST",
@@ -42,7 +48,7 @@ function deleteAccount(account_id) {
                 if (data.error) {
                     alert(data.error);
                 } else {
-                    var row = $("#account_table").find("tr[matk='" + account_id + "']");
+                    var row = $("#account_table").find("tr[soDienThoai='" + account_id + "']");
                     row.remove();
                 }
             }
@@ -66,7 +72,7 @@ $(document).ready(function(){
                     alert(data.error);
                 } else {
                     var newAccount = data.newAccount;
-                    var newRow = "<tr matk="+ newAccount.id +">";
+                    var newRow = "<tr soDienThoai="+ newAccount.id +">";
                     newRow += "<td>" + newAccount.id + "</td>";
                     newRow += "<td>" + newAccount.username + "</td>";
                     newRow += "<td>" + newAccount.email + "</td>";
@@ -74,8 +80,8 @@ $(document).ready(function(){
                     newRow += "<td>" + newAccount.status + "</td>";
                     newRow += `
                     <td>
-                        <button class=\"btn btn-success\" matk=\"<?= $account->id ?>\"><i class=\"fa-solid fa-pen-to-square\"></i></button>
-                        <button class=\"btn btn-danger\" matk=\"<?= $account->id ?>\"><i class=\"fa-solid fa-trash\"></i></button>  
+                        <button class=\"btn btn-success\" soDienThoai=\"<?= $account->id ?>\"><i class=\"fa-solid fa-pen-to-square\"></i></button>
+                        <button class=\"btn btn-danger\" soDienThoai=\"<?= $account->id ?>\"><i class=\"fa-solid fa-trash\"></i></button>  
                     </td>
                     `;
                     newRow += "</tr>";
@@ -104,7 +110,7 @@ $(document).ready(function(){
                     
                     var account = data.account;
                     console.log(account);
-                    var row = $("#account_table").find("tr[matk='" + account.id + "']");
+                    var row = $("#account_table").find("tr[soDienThoai='" + account.id + "']");
                     row.find("td:eq(1)").html(account.username);
                     row.find("td:eq(2)").html(account.email);
                     row.find("td:eq(3)").html(account.role);

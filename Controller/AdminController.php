@@ -2,10 +2,11 @@
 
 class AdminController {
     public function get() {
-        if(isset($_SESSION["logined"]) && ($_SESSION["allowedToAccessAdminPage"] == 1)) {
+        //idChucVu = 4 la khachhang
+        if(isset($_SESSION["user"]) && $_SESSION["user"]->idChucVu != 4) {
             include_once("View/admin/index.php");
         }
-        else if(isset($_SESSION["logined"]) && ($_SESSION["allowedToAccessAdminPage"] == 0)) {
+        else if(isset($_SESSION["user"])) {
             echo "<h2>Ban khong co quyen truy cap trang nay</h2><br>";
             echo "<a href='admin.php'>Quay lai trang chu</a><br>";
             echo "<a href='login.php'>Dang xuat</a><br>";

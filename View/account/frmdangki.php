@@ -12,18 +12,13 @@
             <input type="hidden" name="controller" value="account">
             <input type="hidden" name="action" value="register">
             <div class="mb-3">
-                <label for="usernameDangki" class="form-label">Username or id <span class="text-danger">*</span> </label>
-                <input type="input" class="form-control" id="usernameDangki" name="username">
+                <label for="soDienThoaiDangki" class="form-label">Số điện thoại <span class="text-danger">*</span> </label>
+                <input type="input" class="form-control" id="soDienThoaiDangki" name="soDienThoai">
             </div>
 
             <div class="mb-3">
                 <label for="tenkhachhang" class="form-label">Họ và tên <span class="text-danger">*</span></label>
                 <input type="input" class="form-control" id="tenkhachhang" name="hoTen">
-            </div>
-
-            <div class="mb-3">
-                <label for="sdtInput" class="form-label">Số điện thoại <span class="text-danger">*</span></label>
-                <input type="input" class="form-control" id="sdtInput" name="sdt">
             </div>
             
             <div class="mb-3">

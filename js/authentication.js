@@ -2,7 +2,7 @@ $(document).ready(function(){
     // Xử lý đăng nhập
     $("#frmDangnhap").submit(function(e){
         e.preventDefault();
-        console.log("submitting")
+        console.log("loginning ...")
         $.ajax({
             url: "index.php",
             type: "post",

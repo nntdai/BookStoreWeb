@@ -14,11 +14,11 @@
             <input type="hidden" name="controller" value="account">
             <input type="hidden" name="action" value="login">
             <div class="mb-3">
-                <label for="usernameDangnhap" class="form-label">Username or id: </label>
-                <input type="input" class="form-control" id="usernameDangnhap" name="username">
+                <label for="soDienThoaiDangnhap" class="form-label">Số điện thoại</label>
+                <input type="input" class="form-control" id="soDienThoaiDangnhap" name="soDienThoai">
             </div>
             <div class="mb-3">
-                <label for="pwdInput" class="form-label">Password: </label>
+                <label for="pwdInput" class="form-label">Mật khẩu: </label>
                 <input type="password" class="form-control" id="pwdInput" name="pwd" autocomplete="test" >
             </div>
         </form>

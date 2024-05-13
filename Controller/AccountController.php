@@ -7,9 +7,9 @@ include_once("Model/AccountModel.php");
 
 class AccountController {
     public function get() {
-        if(isset($_GET["acid"])) {
+        if(isset($_GET["soDienThoai"])) {
             $modelAccount = new AccountModel();
-            $account = $modelAccount->getAccountDetail($_GET["acid"]);
+            $account = $modelAccount->getAccountDetail($_GET["soDienThoai"]);
 
             include_once("View/account/detail.php");
         }
@@ -28,7 +28,7 @@ class AccountController {
                     //chua check quyen
                     $modelAccount = new AccountModel();
                     try {
-                        $result = $modelAccount->createAccount($_POST["username"], $_POST["email"], $_POST["password"], $_POST["role"], $_POST["status"], $_POST["sdt"], $_POST["hoTen"]);
+                        $result = $modelAccount->createAccount($_POST["soDienThoai"], $_POST["matKhau"], $_POST["email"], $_POST["idChucVu"], $_POST["status"], $_POST["hoTen"]);
                         echo json_encode(array("status" => "success"));
                     } catch (Exception $e) {
                         echo json_encode(array("status" => "fail", "message" => $e->getMessage()));
@@ -38,7 +38,7 @@ class AccountController {
                     //chua check quyen
                     $modelAccount = new AccountModel();
                     try {
-                        $result = $modelAccount->updateAccount($_POST["acid"], $_POST["username"], $_POST["email"], $_POST["password"], $_POST["role"], $_POST["status"], $_POST["sdt"], $_POST["hoTen"]);
+                        $result = $modelAccount->updateAccount($_POST["soDienThoai"], $_POST["matKhau"], $_POST["email"], $_POST["idChucVu"], $_POST["status"], $_POST["hoTen"]);
                         echo json_encode(array("status" => "success"));
                     } catch (Exception $e) {
                         echo json_encode(array("status" => "fail", "message" => $e->getMessage()));
@@ -48,7 +48,7 @@ class AccountController {
                     //chua check quyen
                     $modelAccount = new AccountModel();
                     try {
-                        $result = $modelAccount->deleteAccount($_POST["acid"]);
+                        $result = $modelAccount->deleteAccount($_POST["soDienThoai"]);
                         echo json_encode(array("status" => "success"));
                     } catch (Exception $e) {
                         echo json_encode(array("status" => "fail", "message" => $e->getMessage()));
@@ -57,7 +57,7 @@ class AccountController {
                 case "detail":
                     $modelAccount = new AccountModel();
                     try {
-                        $account = $modelAccount->getAccountDetail($_POST["acid"]);
+                        $account = $modelAccount->getAccountDetail($_POST["soDienThoai"]);
                         echo json_encode(array("status" => "success", "account" => $account));
                     } catch (Exception $e) {
                         echo json_encode(array("status" => "fail", "message" => $e->getMessage()));
@@ -97,13 +97,14 @@ class AccountController {
     public function login() {
         // Xử lý đăng nhập
         $AccountModel = new AccountModel();
-        $result = $AccountModel->getAccount($_POST["username"], $_POST["pwd"]);
+        $result = $AccountModel->getAccount($_POST["soDienThoai"], $_POST["pwd"]);
         if ($result) {
+            // Lưu thông tin người dùng vào session
             $_SESSION["user"] = $result;
-            $_SESSION["allowedToAccessAdminPage"] = $AccountModel->checkAdminPageAccess()? 1 : 0;
-            echo json_encode(array("status" => "success", "allowedToAccessAdminPage" => $_SESSION["allowedToAccessAdminPage"]));
+            $allowedToAccessAdminPage = $result->idChucVu != 4 ? 1 : 0;
+            echo json_encode(array("status" => "success", "allowedToAccessAdminPage" => $allowedToAccessAdminPage));
         } else {
-            echo json_encode(array("status" => "fail", "message" => "Username or password is incorrect"));
+            echo json_encode(array("status" => "fail", "message" => "Phone numbers or password is incorrect"));
         }
     }
 
@@ -115,7 +116,7 @@ class AccountController {
         }
         // Xử lý đăng ký
         $AccountModel = new AccountModel();
-        $result = $AccountModel->createAccount($_POST["username"], $_POST["pwd1"], $_POST["email"], 2, 1, $_POST["sdt"], $_POST["hoTen"]);
+        $result = $AccountModel->createAccount($_POST["soDienThoai"], $_POST["pwd1"], $_POST["email"], 4, 1, $_POST["hoTen"]);
         if ($result) {
             echo json_encode(array("status" => "success"));
         } else {
@@ -127,43 +128,44 @@ class AccountController {
         // Xử lý validate đăng ký
         $emailReg = "/\w{1,}@[A-z]{2,}\.[a-z]{2,}$/";
         $sdtReg = "/0[0-9]{9,10}/";
-        $username = $_POST["username"];
+        $soDienThoai = $_POST["soDienThoai"];
         $pwd1 = $_POST["pwd1"];
         $pwd2 = $_POST["pwd2"];
         $email = $_POST["email"];
-        $sdt = $_POST["sdt"];
+        $hoTen = $_POST["hoTen"];
         $message = "";
-        if($username == "" || $pwd1 == "" || $pwd2 == "" || $email == "") {
+
+        if(preg_match($sdtReg, $soDienThoai) == false) {
+            $message .= "Invalid phone number;";
+            return false;
+        }
+        if(preg_match($emailReg, $email) == false) {
+            $message .= "Invalid email;";
+            return false;
+        }
+        if($pwd1 == "" || $email == "" || $hoTen == "") {
             $message .= "Empty field;";
-            $result = false;
+            return false;
         }
         else {
             if($pwd1 != $pwd2) {
                 $message .= "Password not match;";
-                $result = false;
-            }
-            if(preg_match($emailReg, $email) == false) {
-                $message .= "Invalid email;";
-                $result = false;
-            }
-            if(preg_match($sdtReg, $sdt) == false and $sdt != "") {
-                $message .= "Invalid phone number;";
-                $result = false;
+                return false;
             }
         }
-        return $result;
+        return true;
     }
 
     public function logout() {
         // Xử lý đăng xuất
         unset($_SESSION["user"]);
-        unset($_SESSION["allowedToAccessAdminPage"]);
     }
 
     public function resetPassword() { // Xử lý quên mật khẩu
         //validate
-        if (!isset($_POST["username"]) ) {
-            echo json_encode(array("status" => "fail", "message" => "Empty username"));
+        $sdtReg = "/0[0-9]{9,10}/";
+        if (!preg_match($sdtReg, $_POST["soDienThoai"])) {
+            echo json_encode(array("status" => "fail", "message" => "Invalid phone number"));
             return;
         }
         if(empty($_POST["password"])) {
@@ -179,10 +181,10 @@ class AccountController {
             return;
         }
         
-        if($this->checkOTP($_POST["username"], $_POST["otp"])) {
+        if($this->checkOTP($_POST["soDienThoai"], $_POST["otp"])) {
             //Reset password
             $AccountModel = new AccountModel();
-            $result = $AccountModel->resetPassword($_POST["username"], $_POST["password"]);
+            $result = $AccountModel->resetPassword($_POST["soDienThoai"], $_POST["password"]);
             if ($result) {
                 echo json_encode(array("status" => "success"));
             } else {
@@ -194,20 +196,22 @@ class AccountController {
     }
 
     public function sendOTP() {
-        if (!isset($_POST["username"])) {
-            echo json_encode(array("status" => "fail", "message" => "Empty username"));
+        //validate
+        $sdtReg = "/0[0-9]{9,10}/";
+        if (!preg_match($sdtReg, $_POST["soDienThoai"])) {
+            echo json_encode(array("status" => "fail", "message" => "Invalid phone number"));
             return;
         }
-        $username = $_POST["username"];
-        //kiem tra username co ton tai khong
+        $soDienThoai = $_POST["soDienThoai"];
+        //kiem tra sdt co ton tai khong
         $AccountModel = new AccountModel();
-        $result = $AccountModel->checkUsernameExist($username);
+        $result = $AccountModel->checkUsernameExist($soDienThoai);
         if (!$result) {
             echo json_encode(array("status" => "fail", "message" => "Username not exist"));
             return;
         }
         //Gửi mã OTP
-        $result = $AccountModel->setAndSendOTP($username, 5);
+        $result = $AccountModel->setAndSendOTP($soDienThoai, 5);
         if ($result) {
             echo json_encode(array("status" => "success"));
         } else {
