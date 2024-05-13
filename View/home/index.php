@@ -36,48 +36,48 @@
     <script src="./js/carousel.js"></script>
     <script src="./js/phantrangSanPham.js"></script>
 <script>
-  function filterBooksVie(chude) {
-    // Tạo đối tượng XMLHttpRequest
-    var xhr = new XMLHttpRequest();
+  // function filterBooksVie(chude) {
+  //   // Tạo đối tượng XMLHttpRequest
+  //   var xhr = new XMLHttpRequest();
 
-    // Xử lý phản hồi từ máy chủ
-    xhr.onreadystatechange = function(e) {
-      // e.preventDefault();
-      if (xhr.readyState === XMLHttpRequest.DONE) {
-        if (xhr.status === 200) {
-          // Cập nhật nội dung trang với danh sách sách đã được lọc
-          document.getElementById("list_vie").innerHTML = xhr.responseText;
-        } else {
-          // Xử lý lỗi nếu có
-          console.error(xhr.status);
-        }
-      }
-    };
-    // Gửi yêu cầu AJAX
-    xhr.open("GET", "./homepage_pages/Loctheochude.php?chude=" + encodeURIComponent(chude), true);
-    xhr.send();
-  }
-  function filterBooksEng(chude) {
-    // Tạo đối tượng XMLHttpRequest
-    var xhr = new XMLHttpRequest();
+  //   // Xử lý phản hồi từ máy chủ
+  //   xhr.onreadystatechange = function(e) {
+  //     // e.preventDefault();
+  //     if (xhr.readyState === XMLHttpRequest.DONE) {
+  //       if (xhr.status === 200) {
+  //         // Cập nhật nội dung trang với danh sách sách đã được lọc
+  //         document.getElementById("list_vie").innerHTML = xhr.responseText;
+  //       } else {
+  //         // Xử lý lỗi nếu có
+  //         console.error(xhr.status);
+  //       }
+  //     }
+  //   };
+  //   // Gửi yêu cầu AJAX
+  //   xhr.open("GET", "./homepage_pages/Loctheochude.php?chude=" + encodeURIComponent(chude), true);
+  //   xhr.send();
+  // }
+  // function filterBooksEng(chude) {
+  //   // Tạo đối tượng XMLHttpRequest
+  //   var xhr = new XMLHttpRequest();
 
-    // Xử lý phản hồi từ máy chủ
-    xhr.onreadystatechange = function(e) {
-      // e.preventDefault();
-      if (xhr.readyState === XMLHttpRequest.DONE) {
-        if (xhr.status === 200) {
-          // Cập nhật nội dung trang với danh sách sách đã được lọc
-          document.getElementById("list_eng").innerHTML = xhr.responseText;
-        } else {
-          // Xử lý lỗi nếu có
-          console.error(xhr.status);
-        }
-      }
-    };
-    // Gửi yêu cầu AJAX
-    xhr.open("GET", "./homepage_pages/Loctheochude.php?chude=" + encodeURIComponent(chude), true);
-    xhr.send();
-  }
+  //   // Xử lý phản hồi từ máy chủ
+  //   xhr.onreadystatechange = function(e) {
+  //     // e.preventDefault();
+  //     if (xhr.readyState === XMLHttpRequest.DONE) {
+  //       if (xhr.status === 200) {
+  //         // Cập nhật nội dung trang với danh sách sách đã được lọc
+  //         document.getElementById("list_eng").innerHTML = xhr.responseText;
+  //       } else {
+  //         // Xử lý lỗi nếu có
+  //         console.error(xhr.status);
+  //       }
+  //     }
+  //   };
+  //   // Gửi yêu cầu AJAX
+  //   xhr.open("GET", "./homepage_pages/Loctheochude.php?chude=" + encodeURIComponent(chude), true);
+  //   xhr.send();
+  // }
   
 </script>
 </html>

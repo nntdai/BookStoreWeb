@@ -78,11 +78,12 @@
                                                         <a href="#" class="btn btn-primary">Go somewhere</a>
                                                     </div>
                                                 </div>
-                                            </div>';
+                                            </div>'
+                                        ;
+                                        $i++;
                                     }
                                 }
                             }
-                            $i++;
                         }
                     }
                 ?>
@@ -132,7 +133,7 @@
                                 if (mysqli_num_rows($Chude_result) > 0) {
                                     while ($row_chude = mysqli_fetch_assoc($Chude_result)) {
                                         echo'
-                                        <li><a onclick="filterBooksVie(\'' . $row_chude['tenChuDe'] . '\')">' . $row_chude['tenChuDe'] . '</a></li>                        ';
+                                        <li><a onclick="loadPage(1, 0,'.$row_chude["id"].', 1, \'#sachtiengviet_collapse\'); ">' . $row_chude['tenChuDe'] . '</a></li>                        ';
                                     }
                                 }
                             }
@@ -141,7 +142,7 @@
                 ?>
             </ul>
         </div>
-        <div class="carousel container-lg sanpham_carousel mb-3" data-bs-ride="carousel"> 
+        <div id="sachtiengviet_carousel" class="carousel container-lg sanpham_carousel mb-3" data-bs-ride="carousel"> 
             <div class="carousel-inner">
                 <?php
                     //Lấy các sản phẩm thuộc sách tiếng việt
@@ -187,31 +188,32 @@
                                                 </div>
                                             </div>'
                                         ;
+                                        $i++;
 
                                     }
                                 }
                             }
-                            $i++;
+                            
                         }
                     }
                 ?>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev" id="km_prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#sachtiengviet_carousel" data-bs-slide="prev" id="km_prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next" id="km_next">
+            <button class="carousel-control-next" type="button" data-bs-target="#sachtiengviet_carousel" data-bs-slide="next" id="km_next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
         <div class="more">
-            <button data-bs-target="#" data-bs-toggle="collapse">
+            <button data-bs-target="#sachtiengviet_collapse" data-bs-toggle="collapse">
                 Xem thêm
             </button>
         </div>
         <!-- show response from ajax request -->
-        <div id="" class="collapse show w-100 paginator_collapse" >
+        <div id="sachtiengviet_collapse" class="collapse show w-100 paginator_collapse" >
             <div class="response row mb-3 g-1 m-auto"></div>
         </div>
     </div>
@@ -238,8 +240,7 @@
                                 if (mysqli_num_rows($Chude_result) > 0) {
                                     while ($row_chude = mysqli_fetch_assoc($Chude_result)) {
                                         echo'
-                                            <li><a onclick="filterBooksEng(\'' . $row_chude['tenChuDe'] . '\',
-                                            \'' . $str2 . '\')">' . $row_chude['tenChuDe'] . '</a></li>';
+                                            <li><a onclick="loadPage(1, 0, '.$row_chude["id"].', '.$row_danhmuc['id'].', \'#sachtienganh_collapse\');">' . $row_chude['tenChuDe'] . '</a></li>';
                                     }
                                 }
                             }
@@ -248,7 +249,7 @@
                 ?>        
             </ul>
         </div>
-        <div class="carousel container-lg sanpham_carousel mb-3" data-bs-ride="carousel"> 
+        <div id="sachtienganh_carousel" class="carousel container-lg sanpham_carousel mb-3" data-bs-ride="carousel"> 
             <div class="carousel-inner">
                 <?php
                     //Lấy các sản phẩm thuộc sách tiếng anh
@@ -270,13 +271,14 @@
                                         if ($i == 0) echo'
                                             <div class="carousel-item active">  
                                                 <div class="card">
-                                                <div class="img-wrapper">
-                                                    <img src="' . $row_hinhanh['url'] . '" alt="">
-                                                </div>
-                                                <div class="card-body">
-                                                    <h5 class="card-title">' . $row_Sach['ten'] . '</h5>
-                                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>
-                                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                                                    <div class="img-wrapper">
+                                                        <img src="' . $row_hinhanh['url'] . '" alt="">
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">' . $row_Sach['ten'] . '</h5>
+                                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>
+                                                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                                                    </div>
                                                 </div>
                                             </div>';
                                         else echo '
@@ -291,33 +293,34 @@
                                                         <a href="#" class="btn btn-primary">Go somewhere</a>
                                                     </div>
                                                 </div>
-                                            </div>';
+                                            </div>'
+                                        ;
+                                        $i++;
                                     }
                                 }
                             }
-                            $i++;
                         }
                     }
                 ?>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev" id="km_prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#sachtienganh_carousel" data-bs-slide="prev" id="km_prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next" id="km_next">
+            <button class="carousel-control-next" type="button" data-bs-target="#sachtienganh_carousel" data-bs-slide="next" id="km_next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
 
         <div class="more">
-            <button data-bs-target="#" data-bs-toggle="collapse">
+            <button data-bs-target="#sachtienganh_collapse" data-bs-toggle="collapse">
                 Xem thêm
             </button>
         </div>
 
         <!-- show response from ajax request -->
-        <div id="" class="collapse show w-100 paginator_collapse">
+        <div id="sachtienganh_collapse" class="collapse show w-100 paginator_collapse">
             <div class="response row mb-3 g-1 m-auto"></div>
             
         </div>
