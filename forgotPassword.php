@@ -77,6 +77,27 @@
             $("#loading").hide();
         });
         $(document).ready(function() {
+            //gui request lay OTP
+            $("#btnSendOtp").click(function() {
+                $.ajax({
+                    type: "POST",
+                    url: "index.php",
+                    data: $("#form").serialize() + "&controller=account&action=sendOTP",
+                    success: function(response) {
+                        try {
+                            data = JSON.parse(response);
+                            if (data["status"] == "success") {
+                                alert("OTP sent successfully");
+                            } else {
+                                alert("Error: "+data["message"]);
+                            }
+                        } catch (error) {
+                            alert("Error: " + response);
+                        }
+                    }
+                });
+            });
+
             $("#form").submit(function(e) {
                 e.preventDefault();
                 
@@ -90,27 +111,6 @@
                             data = JSON.parse(response);
                             if (data["status"] == "success") {
                                 alert("Reset password successfully, please close this tab and login again!");
-                            } else {
-                                alert(data["message"]);
-                            }
-                        } catch (error) {
-                            alert("Error: " + response);
-                        }
-                    }
-                });
-            });
-
-            //gui request lay OTP
-            $("#btnSendOtp").click(function() {
-                $.ajax({
-                    type: "POST",
-                    url: "index.php",
-                    data: $("#form").serialize() + "&controller=account&action=sendOTP",
-                    success: function(response) {
-                        try {
-                            data = JSON.parse(response);
-                            if (data["status"] == "success") {
-                                alert("OTP sent successfully");
                             } else {
                                 alert("Error: "+data["message"]);
                             }

@@ -35,7 +35,6 @@
     <script src="./js/authentication.js"></script>
     <script src="./js/carousel.js"></script>
     <script src="./js/phantrangSanPham.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
   function filterBooksVie(chude) {
     // Tạo đối tượng XMLHttpRequest

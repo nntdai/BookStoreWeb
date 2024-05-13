@@ -27,25 +27,41 @@ class AccountController {
                 case "add":
                     //chua check quyen
                     $modelAccount = new AccountModel();
-                    $json = $modelAccount->createAccount($_POST["username"], $_POST["email"], $_POST["password"], $_POST["role"], $_POST["status"], $_POST["sdt"], $_POST["hoTen"]);
-                    echo json_encode($json);
+                    try {
+                        $result = $modelAccount->createAccount($_POST["username"], $_POST["email"], $_POST["password"], $_POST["role"], $_POST["status"], $_POST["sdt"], $_POST["hoTen"]);
+                        echo json_encode(array("status" => "success"));
+                    } catch (Exception $e) {
+                        echo json_encode(array("status" => "fail", "message" => $e->getMessage()));
+                    }
                     break;
                 case "update":
                     //chua check quyen
                     $modelAccount = new AccountModel();
-                    $json = $modelAccount->updateAccount($_POST["acid"], $_POST["username"], $_POST["password"], $_POST["email"], $_POST["role"], $_POST["status"], $_POST["sdt"], $_POST["hoTen"]);
-                    echo json_encode($json);
+                    try {
+                        $result = $modelAccount->updateAccount($_POST["acid"], $_POST["username"], $_POST["email"], $_POST["password"], $_POST["role"], $_POST["status"], $_POST["sdt"], $_POST["hoTen"]);
+                        echo json_encode(array("status" => "success"));
+                    } catch (Exception $e) {
+                        echo json_encode(array("status" => "fail", "message" => $e->getMessage()));
+                    }
                     break;
                 case "delete":
                     //chua check quyen
                     $modelAccount = new AccountModel();
-                    $json = $modelAccount->deleteAccount($_POST["acid"]);
-                    echo json_encode($json);
+                    try {
+                        $result = $modelAccount->deleteAccount($_POST["acid"]);
+                        echo json_encode(array("status" => "success"));
+                    } catch (Exception $e) {
+                        echo json_encode(array("status" => "fail", "message" => $e->getMessage()));
+                    }
                     break;
                 case "detail":
                     $modelAccount = new AccountModel();
-                    $json = $modelAccount->getAccountDetail($_POST["acid"]);
-                    echo json_encode($json);
+                    try {
+                        $account = $modelAccount->getAccountDetail($_POST["acid"]);
+                        echo json_encode(array("status" => "success", "account" => $account));
+                    } catch (Exception $e) {
+                        echo json_encode(array("status" => "fail", "message" => $e->getMessage()));
+                    }   
                     break;
                 case "login":
                     $this->login();
@@ -83,10 +99,8 @@ class AccountController {
         $AccountModel = new AccountModel();
         $result = $AccountModel->getAccount($_POST["username"], $_POST["pwd"]);
         if ($result) {
-            $_SESSION["username"] = $_POST["username"];
-            $_SESSION["maVaiTro"] = $result->roleId;
+            $_SESSION["user"] = $result;
             $_SESSION["allowedToAccessAdminPage"] = $AccountModel->checkAdminPageAccess()? 1 : 0;
-            $_SESSION["logined"] = true;
             echo json_encode(array("status" => "success", "allowedToAccessAdminPage" => $_SESSION["allowedToAccessAdminPage"]));
         } else {
             echo json_encode(array("status" => "fail", "message" => "Username or password is incorrect"));
@@ -142,10 +156,8 @@ class AccountController {
 
     public function logout() {
         // Xử lý đăng xuất
-        unset($_SESSION["username"]);
-        unset($_SESSION["maVaiTro"]);
+        unset($_SESSION["user"]);
         unset($_SESSION["allowedToAccessAdminPage"]);
-        unset($_SESSION["logined"]);
     }
 
     public function resetPassword() { // Xử lý quên mật khẩu
@@ -181,23 +193,6 @@ class AccountController {
         }
     }
 
-    public function getModal() {
-        // Lấy modal đăng nhập
-    }
-
-    public function getScriptModal() {
-        // Lấy script cho modal đăng nhập
-    }
-
-    public function getPage() {
-        //Lấy trang đăng nhập
-    }
-
-    public function getScriptPage() {
-        //Lấy script cho trang đăng nhập
-        echo "<script src='js/login.js'></script>";
-    }
-
     public function sendOTP() {
         if (!isset($_POST["username"])) {
             echo json_encode(array("status" => "fail", "message" => "Empty username"));
@@ -225,6 +220,23 @@ class AccountController {
         $AccountModel = new AccountModel();
         $result = $AccountModel->checkOTP($username, $otp);
         return $result;
+    }
+
+    public function getModal() {
+        // Lấy modal đăng nhập
+    }
+
+    public function getScriptModal() {
+        // Lấy script cho modal đăng nhập
+    }
+
+    public function getPage() {
+        //Lấy trang đăng nhập
+    }
+
+    public function getScriptPage() {
+        //Lấy script cho trang đăng nhập
+        echo "<script src='js/login.js'></script>";
     }
 }
 

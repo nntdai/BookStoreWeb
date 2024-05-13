@@ -1,5 +1,5 @@
 <?php
-include_once("E_Account.php");
+include_once("EntityAccount.php");
 include_once("./util/DatabaseConnection.php");
 class AccountModel {
     public function __construct()

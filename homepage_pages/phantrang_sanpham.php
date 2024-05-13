@@ -1,4 +1,9 @@
 <?php
+    //get loai sach, so luong sach tren 1 trang, so trang hien thi
+
+
+
+
     require("C:/xampp/htdocs/bookstoreweb/taikhoan/DatabaseConnection.php");
     if (isset($_POST["sp_page"])) {
         $page = (int)$_POST["sp_page"];

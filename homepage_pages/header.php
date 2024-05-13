@@ -1,7 +1,4 @@
 <?php
-    require_once("Model/EntityUser.php");
-?>
-<?php
     require("./homepage_pages/database.php");
 ?>
 <?php
@@ -121,8 +118,8 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
                 <?php 
-                if (isset($_SESSION["logined"]) && $_SESSION["logined"] == true) { ?>
-                    <li>Hello, <?php echo $_SESSION["username"]; ?></li>
+                if (isset($_SESSION["user"])) { ?>
+                    <li>Hello, <?php echo $_SESSION["user"]->getUsername(); ?></li>
                     <li><button type='button' class='mb-1 dropdown-item' id='btn_DangXuat'>
                         Đăng xuất 
                     </button></li>
