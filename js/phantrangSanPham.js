@@ -5,12 +5,16 @@ function loadPage(page, khuyenmai, chude, ngonngu, collapse){
     if (ngonngu) requestData.ngonngu = ngonngu;
     requestData.page = page;
     $.ajax({
-        url: "homepage_pages/phantrang_khuyenmai.php",
+        url: "homepage_pages/phantrang.php",
         method: "POST",
         data: requestData,
         success: function(response){
-            console.log(response);
-            data = JSON.parse(response);
+            try {
+                data = JSON.parse(response);
+            } catch (e) {
+                console.log(response);
+                return;
+            }
             let products = data.products;
             //TODO: hien thi thanh phan trang
             let html = `
