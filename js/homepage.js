@@ -52,6 +52,10 @@ Btn_search.addEventListener('click', function(){
   Input_search.classList.toggle('block');
 })
 
+$(window).on('resize', function() {
+  console.log('resize');
+});
+
 
 
 

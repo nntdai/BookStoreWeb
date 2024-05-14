@@ -4,6 +4,15 @@ function loadPage(page, khuyenmai, chude, ngonngu, collapse){
     if (chude) requestData.chude = chude;
     if (ngonngu) requestData.ngonngu = ngonngu;
     requestData.page = page;
+    $(collapse).on("click", ".page-index", function(){
+        if ($(this).hasClass("active")) return;
+        $(this).addClass("active").siblings().removeClass("active");
+        loadPage($(this).text(), 1, 0, 0, collapse);
+    });
+    
+    $(collapse).on("click", ".go-to-first-btn", function(){
+        loadPage(1, 1, 0, 0, collapse);
+    });
     $.ajax({
         url: "homepage_pages/phantrang.php",
         method: "POST",
@@ -56,34 +65,25 @@ function loadPage(page, khuyenmai, chude, ngonngu, collapse){
             products.forEach(product => {
                 let wrapper = document.createElement("div");
                 wrapper.classList.add("col-sm-6", "col-md-4", "col-lg-3");
-                let card = document.createElement("div");
-                card.classList.add("card");
-                card.innerHTML = `
-                    <div class="img-wrapper">
-                        <img src="${product.hinhAnh}" alt="">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title"> ${product.ten} </h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                wrapper.innerHTML = `
+                    <div class="card">
+                        <div class="img-wrapper">
+                            <img src="${product.hinhAnh}" alt="">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title text-nowrap overflow-hidden"> ${product.ten} </h5>
+                            <p class="card-text" style="height: 100px; overflow: auto;">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
                     </div>
                 `;
-                wrapper.appendChild(card);
                 output.appendChild(wrapper);
             });
         }
     });
 }
 
-$("#km_collapse").on("click", ".page-index", function(){
-    if ($(this).hasClass("active")) return;
-    $(this).addClass("active").siblings().removeClass("active");
-    loadPage($(this).text(), 1, 0, 0, "#km_collapse");
-});
 
-$("#km_collapse").on("click", ".go-to-first-btn", function(){
-    loadPage(1, 1, 0, 0, "#km_collapse");
-});
 $(document).ready(function() {
     loadPage(1, 1, 0, 0, "#km_collapse");
 });

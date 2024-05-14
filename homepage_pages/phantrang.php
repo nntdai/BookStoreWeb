@@ -12,10 +12,18 @@
     $page = $_POST["page"];
 
     $sub_query = "";
+    if (isset($_POST["from"])) {
+        $from = $_POST["from"];
+        $sub_query = "and s.giaBan >= $from ";
+    }
+    if (isset($_POST["to"])) {
+        $to = $_POST["to"];
+        $sub_query .= "and s.giaBan <= $to ";
+    }
     if(isset($_POST["theloai"])) {
         //sp co idTheloai = $_POST["theloai"]
-        // $idTheLoai = $_POST["theloai"];
-        // $sub_query = "SELECT * FROM sach WHERE idTheLoai = $idTheLoai";
+        $idTheLoai = $_POST["theloai"];
+        $sub_query = "SELECT * FROM sach WHERE idTheLoai = $idTheLoai";
     }
     if(isset($_POST["chude"])) {
         //sp co idTheloai trong bang theloai ma co idChude = $_POST["chude"]

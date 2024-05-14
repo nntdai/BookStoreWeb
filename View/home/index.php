@@ -41,10 +41,4 @@
     <script src="./js/carousel.js"></script>
     <script src="./js/phantrangSanPham.js"></script>
     <script src="./js/Locvatimkiem.js"></script>
-<script>
-<script>
-
-</script>
-
-</script>
 </html>
