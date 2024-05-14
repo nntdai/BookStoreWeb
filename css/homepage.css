@@ -11,6 +11,7 @@
     --discount: #813434;
     --search: #0C92D1;
 }
+
 header{
     background-color: var(--header-color);
     width: 100%;

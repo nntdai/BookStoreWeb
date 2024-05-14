@@ -87,3 +87,11 @@ $("#km_collapse").on("click", ".go-to-first-btn", function(){
 $(document).ready(function() {
     loadPage(1, 1, 0, 0, "#km_collapse");
 });
+function handleClickVie(tenChuDe, id) {
+    filterBooksVie(tenChuDe);
+    loadPage(1, 0, id, 1, '#sachtiengviet_collapse');
+  }
+  function handleClickEng(tenChuDe, id) {
+    filterBooksEng(tenChuDe);
+    loadPage(1, 0, id, 1, '#sachtiengviet_collapse');
+  }

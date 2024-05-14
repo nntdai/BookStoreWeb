@@ -1,3 +1,4 @@
+
 <?php
     require("./homepage_pages/database.php");
 ?>
@@ -6,7 +7,7 @@
     <header>
     <div class="left_header">
         <div class="logo">
-            <img src="./Image/iconBookStore.png" alt="">
+            <a href="index.php"><img src="./Image/iconBookStore.png" alt=""></a>
         </div>
         <div class="menu_dropdown">
             <img src="./Image/books.png" alt="" id="books">
@@ -81,7 +82,7 @@
                 echo '      <tr>';
                 foreach ($columns as $column) {
                     if (isset($column['theloais'][$i])) {
-                        echo    '<td><a href="#">' . $column['theloais'][$i] . '</a></td>';
+                        echo '<td><a href="#" data-theloai="' . $column['theloais'][$i] . '">' . $column['theloais'][$i] . '</a></td>';
                     } else {
                         echo '<td></td>';
                     }
@@ -101,9 +102,9 @@
     </div>';
 ?>
     <div class="center_header">
-        <input type="text" id="searchInput">
         <button id="btn_search"><img src="./Image/search.png" alt=""></button>
     </div>
+    
 
     <div id="searchResults"></div>
     <div id="pagination"></div>
