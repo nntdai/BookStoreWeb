@@ -19,8 +19,8 @@
     if (isset($_POST["price_range"]) && $_POST["price_range"] != "") {
         $range = $_POST["price_range"];
         $range = explode("-", $range);
-        $min = $range[0];
-        $max = $range[1];
+        $min = (int)$range[0];
+        $max = (int)$range[1];
         $sub_query .= "and s.giagoc >= $min and s.giagoc <= $max ";
     }
     if(isset($_POST["idDanhMuc"]) && $_POST["idDanhMuc"] != "") {

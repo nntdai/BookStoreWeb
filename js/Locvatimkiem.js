@@ -11,6 +11,7 @@ $(document).ready(function(){
         //loadPage(page, khuyenmai, idChuDe, idNgonNgu, idTheLoai, khoangGia, collapse)
         let requestData = {
             page: 1,
+            price_range: khoangGia,
             idTheLoai: idTheLoai,
             khoangGia: khoangGia,
             tenSach: tenSach
