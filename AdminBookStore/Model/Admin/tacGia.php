@@ -1,5 +1,6 @@
 <?php
-include_once('Model/Database.php');
+include_once ('C:/xampp/htdocs/AdminBookStore/Model/Database.php');
+// include_once './Model/Database.php';
 class TacGiaModel extends Database{
 	protected $db;
     
@@ -18,6 +19,26 @@ public function ListTacGiaSach($id)
 		}
 
 		return $list;
+	}
+	public function addTacGia($tenTacGia)
+	{	
+		$sql = "INSERT INTO tacgia (hoTen,status) VALUES ('$tenTacGia',1)";
+		$this->db->conn->query($sql);
+	}
+	public function getID()
+	{	
+		$sql = "SELECT id FROM tacgia ORDER BY id DESC LIMIT 1";
+		$result = $this->db->conn->query($sql);
+		$list = array();
+		while ($data = $result->fetch_array()) {
+			$list[] = $data;
+		}
+		return $list[0]['id'];
+	}
+	public function addTacGia_Sach($tenTacGia,$idSach)
+	{	
+		$sql = "INSERT INTO tacgia_sach (idSach,idTacGia,status) VALUES ('$idSach','$tenTacGia',1)";
+		$this->db->conn->query($sql);
 	}
 	public function ListTacGia()
 	{

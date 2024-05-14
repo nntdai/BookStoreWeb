@@ -1,0 +1,11 @@
+*{
+    box-sizing: border-box;
+}
+#khung{
+    margin: 10px;
+    width: 1000px;
+    height: 100px;
+}
+#intro{
+    text-align: left;
+}

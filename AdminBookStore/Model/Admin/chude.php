@@ -1,5 +1,6 @@
 <?php
-include_once('Model/Database.php');
+include_once ('C:/xampp/htdocs/AdminBookStore/Model/Database.php');
+// include_once './Model/Database.php';
 class ChuDeModel extends Database{
 	protected $db;
 
@@ -16,4 +17,16 @@ class ChuDeModel extends Database{
 							VALUES ('$name')";
 		$this->db->conn->query($sql);
 	}
+	public function ListChuDe()
+	{
+		$sql = "SELECT * FROM chude ";
+		$result = $this->db->conn->query($sql);
+		$list = array();
+		while ($data = $result->fetch_array()) {
+			$list[] = $data;
+		}
+
+		return $list;
+	}
+	
 }

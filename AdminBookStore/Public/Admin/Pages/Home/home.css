@@ -57,6 +57,7 @@
 #vertical_menu li a:focus
 {
     border: 4px;
+    border-radius: 50px;
     background-color: rgb(79, 112, 156);
    
 }

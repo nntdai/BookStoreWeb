@@ -14,7 +14,7 @@
             </div>
         </div>
     </div>
-    <section class="content">
+    <section class="content">s
         <div class="container-fluid">
             <form method="post">
                 <div class="card-body">

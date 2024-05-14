@@ -1,5 +1,6 @@
 <?php
-include_once('Model/Database.php');
+include_once ('C:/xampp/htdocs/AdminBookStore/Model/Database.php');
+// include_once './Model/Database.php';
 class TheLoaiModel extends Database{
 	protected $db;
 
@@ -11,7 +12,7 @@ class TheLoaiModel extends Database{
 
 	public function ListTheLoai()
 	{
-		$sql = "SELECT * From theloai";
+		$sql = "select theloai.id,theloai.tenTheLoai,danhmuc.tenDanhMuc,chude.tenChuDe from theloai,danhmuc,chude where theloai.idChuDe=chude.id and danhmuc.id=chude.id";
 		$result = $this->db->conn->query($sql);
 		$list = array();
 		while ($data = $result->fetch_array()) {

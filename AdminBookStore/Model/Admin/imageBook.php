@@ -1,5 +1,6 @@
 <?php
-include_once('Model/Database.php');
+include_once ('C:/xampp/htdocs/AdminBookStore/Model/Database.php');
+// include_once './Model/Database.php';
 class HinhAnhModel extends Database{
 	protected $db;
     
@@ -18,5 +19,11 @@ public function DanhSachHinhAnh($id)
 		}
 
 		return $list;
+	}
+	public function addHinhAnh_Sach($url,$idSach)
+	{	
+		$sql = "INSERT INTO hinhanhsach (url,idSach) VALUES ('$url','$idSach')";
+		$this->db->conn->query($sql);
+		return $sql;
 	}
 }
