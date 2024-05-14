@@ -54,6 +54,7 @@
     if ($result->num_rows > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
             //bo cot
+            
             array_push($products, $row);
         }
         

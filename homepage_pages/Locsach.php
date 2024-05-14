@@ -1,71 +1,90 @@
 <?php
 require("database.php");
-?>
-<?php
+
 function limitString($string, $limit) {
     if (strlen($string) > $limit) {
         $string = substr($string, 0, $limit) . '...';
     }
     return $string;
 }
-?>
-<div class="container-xl bg-light pb-3" id="locsach">
-    <!--TODO: can ajax carousel -->
-    <div id="locsach_carousel" class="carousel sanpham_carousel mb-3" data-bs-ride="carousel"> 
-        <div class="carousel-inner row">
-            <?php
-            if (isset($_GET['theloai'])) {
-                // Lấy giá trị của tham số truy vấn 'theloai'
-                $selectedTheloai = $_GET['theloai'];
 
-                // Kết nối đến cơ sở dữ liệu và thực hiện câu truy vấn để lấy sách theo thể loại
-                $Sach_query = "SELECT sach.*, hinhanhsach.url
-                            FROM sach
-                            INNER JOIN hinhanhsach ON sach.id = hinhanhsach.idSach
-                            INNER JOIN theloai ON sach.idTheLoai = theloai.id
-                            WHERE theloai.tenTheLoai = '$selectedTheloai'
-                            GROUP BY sach.id";
-                $Sach_result = mysqli_query($con, $Sach_query);
-                if (mysqli_num_rows($Sach_result) > 0) {
-                    $i = 0;
-                    while ($row_Sach = mysqli_fetch_assoc($Sach_result)) {
-                        $id_Sach = $row_Sach['id'];
-                        $Hinhanhsach_query = "SELECT hinhanhsach.url FROM hinhanhsach WHERE hinhanhsach.idSach = $id_Sach LIMIT 1;";
-                        $Hinhanhsach_result = mysqli_query($con, $Hinhanhsach_query);
-                        $row_hinhanh = mysqli_fetch_assoc($Hinhanhsach_result);
-                        $tenSach = limitString($row_Sach['ten'], 22); // Thay 30 bằng độ dài tối đa bạn muốn
-                        $Discount_price = $row_Sach['giagoc'] - ($row_Sach['phanTramKhuyenMai'] * $row_Sach['giagoc'] / 100);
-                        echo '
-                        <div class="carousel-item col-6 col-sm-6 col-md-4 col-lg-3">
-                            <div class="card mb-3">
-                                <div class="img-wrapper">
-                                    <img src="' . $row_hinhanh['url'] . '" class="card-img-top" alt="">
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">' . $tenSach . '</h5>
-                                    <div class="d-flex justify-content-between">
-                                        <p class="card-text">' . number_format($Discount_price, 0, '', '.') . ' đ</p>
-                                        <p class="card-text text-decoration-line-through" style="color: red">' . number_format($row_Sach['giagoc'], 0, '', '.') . 'đ</p>
-                                    </div>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
-                        </div>';
-                    }
-                } else {
-                    echo '
-                    <div class="product w-100 justify-content-center">
-                        <p>Không tìm thấy sách phù hợp.</p>
-                    </div>';
-                    $i++;
+echo '<div class="container-xl bg-light pb-3" id="locsach">';
+$itemsPerPage = 6; // Number of items per page
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Current page
+$offset = ($page - 1) * $itemsPerPage; // Offset for SQL query
+
+if (isset($_GET['theloai'])) {
+    $selectedTheloai = $_GET['theloai'];
+
+    $baseSql = "FROM sach
+                INNER JOIN hinhanhsach ON sach.id = hinhanhsach.idSach
+                INNER JOIN theloai ON sach.idTheLoai = theloai.id
+                WHERE theloai.tenTheLoai = '$selectedTheloai'"; // Basic condition
+
+    $sql = "SELECT sach.*, MIN(hinhanhsach.url) AS url $baseSql GROUP BY sach.id LIMIT $itemsPerPage OFFSET $offset";
+    $result = mysqli_query($con, $sql);
+
+    $totalResultsSql = "SELECT COUNT(DISTINCT sach.id) AS total $baseSql"; // Query to get total results
+    $totalResults = mysqli_query($con, $totalResultsSql);
+    $totalRows = mysqli_fetch_assoc($totalResults)['total'];
+    $totalPages = ceil($totalRows / $itemsPerPage);
+
+    echo '<div class="products-grid mb-3 w-100">';
+
+    if (mysqli_num_rows($result) > 0) {
+        $i = 0;
+        while ($row = mysqli_fetch_assoc($result)) {
+            $productId = $row['id'];
+            $Discount_price = $row['giagoc'] - ($row['phanTramKhuyenMai'] * $row['giagoc'] / 100);
+            $tenSach = limitString($row['ten'], 22);
+
+            if ($i % 3 == 0) {
+                if ($i > 0) {
+                    echo '</div>'; // Close previous row
                 }
+                echo '<div class="row mb-3">'; // Add margin-bottom to row
             }
-            ?>
-        </div>
 
-        <!-- show response from ajax request -->
-        <div id="locsach_collapse" class="collapse show w-100 paginator_collapse">
-            <div class="response row mb-3 g-1 m-auto"></div>
-        </div>
-    </div>
-</div>
+            echo '<div class="col-md-4 d-flex align-items-stretch">
+                    <div class="card w-100">
+                        <div class="img-wrapper">
+                            <img src="' . $row['url'] . '" class="card-img-top" alt="">
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">' . $tenSach . '</h5>
+                            <div class="d-flex justify-content-between">
+                                <p class="card-text">' . number_format($Discount_price, 0, '', '.') . ' đ</p>
+                                <p class="card-text text-decoration-line-through" style="color: red">' . number_format($row['giagoc'], 0, '', '.') . 'đ</p>    
+                            </div>
+                            <a href="#" class="btn btn-primary mt-auto">Go somewhere</a>
+                        </div>
+                    </div>
+                  </div>';
+
+            $i++;
+        }
+        if ($i % 3 != 0) {
+            echo '</div>'; // close last row
+        }
+
+        echo '</div>'; // close products-grid
+
+        // Pagination controls
+        echo '<nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">';
+
+        for ($i = 1; $i <= $totalPages; $i++) {
+            $active = $i == $page ? 'active' : '';
+            echo '<li class="page-item ' . $active . '"><a class="page-link" href="?theloai=' . urlencode($selectedTheloai) . '&page=' . $i . '">' . $i . '</a></li>';
+        }
+
+        echo '  </ul>
+              </nav>';
+    } else {
+        echo '<div class="product w-100 justify-content-center">
+                <p>Không tìm thấy sách phù hợp.</p>
+              </div>';
+    }
+}
+echo '</div>';
+?>

@@ -93,5 +93,5 @@ function handleClickVie(tenChuDe, id) {
   }
   function handleClickEng(tenChuDe, id) {
     filterBooksEng(tenChuDe);
-    loadPage(1, 0, id, 1, '#sachtiengviet_collapse');
+    loadPage(1, 0, id, 2, '#sachtienganh_collapse');
   }

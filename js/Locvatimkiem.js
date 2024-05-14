@@ -84,83 +84,96 @@ function filterBooksVie(chude) {
   }
     
     // Lắng nghe sự kiện click trên các thẻ <a> có thuộc tính data-theloai
-    const theloaiLinks = document.querySelectorAll("a[data-theloai]");
+  const theloaiLinks = document.querySelectorAll("a[data-theloai]");
 
-    theloaiLinks.forEach((link) => {
-        link.addEventListener("click", function(e) {
-            e.preventDefault(); // Ngăn chặn hành vi mặc định của trình duyệt khi nhấp vào liên kết
+  theloaiLinks.forEach((link) => {
+      link.addEventListener("click", function(e) {
+          e.preventDefault(); // Ngăn chặn hành vi mặc định của trình duyệt khi nhấp vào liên kết
 
-            const theloai = this.getAttribute("data-theloai");
-            console.log(theloai);
+          const theloai = this.getAttribute("data-theloai");
+          hide();
+          filterBooksByTheloai(theloai);
+      });
+  });
+
+  // Hàm gửi yêu cầu AJAX lọc sách theo thể loại đến máy chủ
+  function filterBooksByTheloai(theloai) {
+      // Gửi yêu cầu AJAX đến máy chủ để lấy sách theo thể loại
+      const xhr = new XMLHttpRequest();
+    
+      xhr.onreadystatechange = function() {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+              if (xhr.status === 200) {
+                  const filteredBooks = xhr.responseText;
+                  // Hiển thị kết quả lọc sách
+                  const filteredBooksContainer = document.getElementById("filtered-books");
+                  filteredBooksContainer.innerHTML = filteredBooks;
+              } else {
+                  console.error("Có lỗi xảy ra khi lọc sách.");
+              }
+          }
+      };
+      xhr.open("GET", "./homepage_pages/Locsach.php?theloai=" + encodeURIComponent(theloai), true);
+      xhr.send();
+  }
+
             
-            filterBooksByTheloai(theloai);
-            hide();
-        });
-    });
 
-    // Hàm gửi yêu cầu lọc sách theo thể loại đến máy chủ
-    function filterBooksByTheloai(theloai) {
-        // Gửi yêu cầu AJAX đến máy chủ để lấy sách theo thể loại
-        const xhr = new XMLHttpRequest();
-       
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    const filteredBooks = xhr.responseText;
-
-                    // Hiển thị kết quả lọc sách
-                    const filteredBooksContainer = document.getElementById("filtered-books");
-                    filteredBooksContainer.innerHTML = filteredBooks;
-                } else {
-                    console.error("Có lỗi xảy ra khi lọc sách.");
-                }
-            }
-        };
-        xhr.open("GET", "./homepage_pages/Locsach.php?theloai=" + theloai, true);
-        xhr.send();
-    }
     document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("searchForm").addEventListener("submit", function(e) {
-        e.preventDefault();
-        hidefilter();
-        var keyword = document.getElementById("keyword").value;
-        var theloai = document.getElementById("theloai").value;
-        var priceRange = document.getElementById("price_range").value;
-
-        var minPrice;
-        var maxPrice;
-        
-        if (priceRange === "0-100000") {
-            minPrice = 0;
-            maxPrice = 100000;
-        } else if (priceRange === "100000-500000") {
-            minPrice = 100000;
-            maxPrice = 500000;
-        }
-
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    var response = xhr.responseText;
-                    const searchBooksContainer = document.getElementById("search-books");
-                    searchBooksContainer.innerHTML = response;
-                } else {
-                    console.error("Có lỗi xảy ra khi tìm kiếm.");
-                }
-            }
-        };
-
-        var url = "./homepage_pages/Timkiem.php";
-        url += "?keyword=" + encodeURIComponent(keyword);
-        url += "&theloai=" + encodeURIComponent(theloai);
-        if (minPrice !== undefined && maxPrice !== undefined) {
-            url += "&min_price=" + encodeURIComponent(minPrice);
-            url += "&max_price=" + encodeURIComponent(maxPrice);
-        }
-
-
-        xhr.open("GET", url, true);
-        xhr.send();
-    });
-});
+      document.getElementById("searchForm").addEventListener("submit", function(e) {
+          e.preventDefault();
+          performSearch(1);
+      });
+  
+      document.addEventListener("click", function(e) {
+          if (e.target.classList.contains("page-link")) {
+              e.preventDefault();
+              var page = e.target.getAttribute("data-page");
+              performSearch(page);
+          }
+      });
+  
+      function performSearch(page) {
+          hidefilter();
+          var keyword = document.getElementById("keyword").value;
+          var theloai = document.getElementById("theloai").value;
+          var priceRange = document.getElementById("price_range").value;
+  
+          var minPrice;
+          var maxPrice;
+  
+          if (priceRange === "0-100000") {
+              minPrice = 0;
+              maxPrice = 100000;
+          } else if (priceRange === "100000-500000") {
+              minPrice = 100000;
+              maxPrice = 500000;
+          }
+  
+          var xhr = new XMLHttpRequest();
+          xhr.onreadystatechange = function() {
+              if (xhr.readyState === XMLHttpRequest.DONE) {
+                  if (xhr.status === 200) {
+                      var response = xhr.responseText;
+                      const searchBooksContainer = document.getElementById("search-books");
+                      searchBooksContainer.innerHTML = response;
+                  } else {
+                      console.error("Có lỗi xảy ra khi tìm kiếm.");
+                  }
+              }
+          };
+  
+          var url = "./homepage_pages/Timkiem.php";
+          url += "?keyword=" + encodeURIComponent(keyword);
+          url += "&theloai=" + encodeURIComponent(theloai);
+          if (minPrice !== undefined && maxPrice !== undefined) {
+              url += "&min_price=" + encodeURIComponent(minPrice);
+              url += "&max_price=" + encodeURIComponent(maxPrice);
+          }
+          url += "&page=" + encodeURIComponent(page);
+  
+          xhr.open("GET", url, true);
+          xhr.send();
+      }
+  });
+  

@@ -12,16 +12,16 @@
 <main>
     <div id="filtered-books" style="display: none"></div>
     <div class="search_dropdown w-100 hidden" id="search_dropdown">
-        <div class="search_input d-flex justify-content-center align-items-start w-100"> <!-- Thêm lớp d-flex và align-items-start -->
+        <div class="search_input d-flex justify-content-center align-items-start w-100">
             <form id="searchForm" class="row align-items-start w-75">
-                <div class="col-md-12 mb-1 " > <!-- Thêm lớp mb-3 để tạo khoảng cách dưới -->
+                <div class="col-md-12 mb-1">
                     <input type="text" id="keyword" placeholder="Tìm kiếm" style="padding: 10px" class="position-relative form-control">
                 </div>
-                <div class="col-md-6"> 
+                <div class="col-md-6">
                     <select name="theloai" id="theloai" class="form-select">
                         <option value="">Chọn thể loại</option>
                         <?php
-                        $sql = "SELECT * FROM theloai"; // Thay thế "theloai" bằng tên bảng chứa các thể loại trong cơ sở dữ liệu của bạn
+                        $sql = "SELECT * FROM theloai";
                         $result = mysqli_query($con, $sql);
                         if (mysqli_num_rows($result) > 0) {
                             while ($row = mysqli_fetch_assoc($result)) {
@@ -32,7 +32,7 @@
                         ?>
                     </select>
                 </div>
-                <div class="col-md-6"> <!-- Thêm lớp mb-3 để tạo khoảng cách dưới -->
+                <div class="col-md-6">
                     <select name="price_range" id="price_range" class="form-select">
                         <option value="">Chọn khoảng giá</option>
                         <option value="0-100000">Dưới 100,000đ</option>
@@ -42,7 +42,8 @@
             </form>
         </div>
     </div>
-    <div id="search-books" class="carousel container-lg sanpham_carousel mb-3 hidden mt-3" data-bs-ride="carousel" ></div>
+    <div id="search-books" class="carousel sanpham_carousel mb-3 hidden mt-3" data-bs-ride="carousel"></div>
+
     <div class="carousel slide container" data-bs-ride="carousel" id="banner_carousel">
         
         <div class="carousel-inner">
