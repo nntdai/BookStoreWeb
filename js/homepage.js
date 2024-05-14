@@ -52,6 +52,13 @@ Btn_search.addEventListener('click', function(){
   Input_search.classList.toggle('block');
 })
 
+$(window).on('resize', function() {
+  //neu chieu rong cua trinh duyet co width: 576px thi reload lai trang
+  if (window.matchMedia('(max-width: 576px)').matches) {
+      location.reload();
+  }
+});
+
 
 
 

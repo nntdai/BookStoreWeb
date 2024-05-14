@@ -141,10 +141,10 @@
             </form>
         </div>
     </div>
-    <div id="searchResults"></div>
 
     
-    <div id="pagination"></div>
+    <div id="searchResults"></div>
+<div id="pagination"></div>
     <div class="right_header">
         <div class="cart">
             <img src="./Image/shopping-cart.png" alt="">

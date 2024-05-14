@@ -12,6 +12,4 @@
         die();
     }
     $controller->get();
-
-
 ?>

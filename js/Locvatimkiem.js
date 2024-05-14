@@ -9,7 +9,13 @@ $(document).ready(function(){
         let tenSach = $form.find("input[name='tenSach']").val();
         console.log(tenSach+" "+ idTheLoai+" "+ khoangGia);
         //loadPage(page, khuyenmai, idChuDe, idNgonNgu, idTheLoai, khoangGia, collapse)
-        loadPage(1, 0, 0, 0, idTheLoai, khoangGia, tenSach, "#search-books", false);
+        let requestData = {
+            page: 1,
+            idTheLoai: idTheLoai,
+            khoangGia: khoangGia,
+            tenSach: tenSach
+        };
+        loadPage(requestData, "#search-books");
 
         $("#search-books").show();
     });
