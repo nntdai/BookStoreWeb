@@ -10,39 +10,14 @@
         }
 ?>
 <main>
-    <div id="filtered-books" style="display: none"></div>
-    <div class="search_dropdown w-100 hidden" id="search_dropdown">
-        <div class="search_input d-flex justify-content-center align-items-start w-100"> <!-- Thêm lớp d-flex và align-items-start -->
-            <form id="searchForm" class="row align-items-start w-75">
-                <div class="col-md-12 mb-1 " > <!-- Thêm lớp mb-3 để tạo khoảng cách dưới -->
-                    <input type="text" id="keyword" placeholder="Tìm kiếm" style="padding: 10px" class="position-relative form-control">
-                </div>
-                <div class="col-md-6"> 
-                    <select name="theloai" id="theloai" class="form-select">
-                        <option value="">Chọn thể loại</option>
-                        <?php
-                        $sql = "SELECT * FROM theloai"; // Thay thế "theloai" bằng tên bảng chứa các thể loại trong cơ sở dữ liệu của bạn
-                        $result = mysqli_query($con, $sql);
-                        if (mysqli_num_rows($result) > 0) {
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                $theloai = $row['tenTheLoai'];
-                                echo '<option value="' . $theloai . '">' . $theloai . '</option>';
-                            }
-                        }
-                        ?>
-                    </select>
-                </div>
-                <div class="col-md-6"> <!-- Thêm lớp mb-3 để tạo khoảng cách dưới -->
-                    <select name="price_range" id="price_range" class="form-select">
-                        <option value="">Chọn khoảng giá</option>
-                        <option value="0-100000">Dưới 100,000đ</option>
-                        <option value="100000-500000">100,000đ - 500,000đ</option>
-                    </select>
-                </div>
-            </form>
-        </div>
+        
+    <!-- hien thi san pham loc duoc -->
+    <div id="search-books" class="w-100 collapse hide" style="min-height: 300px;">
+        <nav class="w-100 d-flex justify-content-center mb-3"></nav>
+        <div class="response row mb-3 g-1 m-auto container"></div>
     </div>
-    <div id="search-books" class="carousel container-lg sanpham_carousel mb-3 hidden mt-3" data-bs-ride="carousel" ></div>
+    
+
     <div class="carousel slide container" data-bs-ride="carousel" id="banner_carousel">
         
         <div class="carousel-inner">
@@ -71,7 +46,7 @@
         </div>
     </div>
 
-    <div class="container-xl bg-light pb-3" id="khuyenmai">
+    <div class="container-xl bg-light pb-3">
         <div class="discount_header">
             <p>Khuyến mãi</p>
             <span>Kết thúc trong</span>
@@ -81,64 +56,7 @@
         <!--TODO: can ajax carousel -->
         <div id="khuyenmai_carousel" class="carousel sanpham_carousel mb-3" data-bs-ride="carousel"> 
             <div class="carousel-inner">
-                <!-- them ajax carousel item -->
-                <!-- format -->
-                <?php
-                    $Sach_query = "SELECT * FROM sach;";
-                    $Sach_result = mysqli_query($con, $Sach_query);
-                    if (mysqli_num_rows($Sach_result) > 0) {
-                        $i = 0;
-                        while ($row_Sach = mysqli_fetch_assoc($Sach_result)) {
-                            $id_Sach = $row_Sach['id'];
-                            $id_SachKM = $row_Sach['phanTramKhuyenMai'];
-                            if ($id_SachKM > 0) {
-                                $Hinhanhsach_query = "SELECT hinhanhsach.url, hinhanhsach.idSach FROM hinhanhsach WHERE hinhanhsach.idSach = $id_Sach LIMIT 1;";
-                                $Hinhanhsach_result = mysqli_query($con, $Hinhanhsach_query);
-                                if (mysqli_num_rows($Hinhanhsach_result) > 0) {
-                                    while ($row_hinhanh = mysqli_fetch_assoc($Hinhanhsach_result)) {
-                                        $tenSach = limitString($row_Sach['ten'], 22); // Thay 30 bằng độ dài tối đa bạn muốn
-                                        $Discount_price = $row_Sach['giagoc'] - ($row_Sach['phanTramKhuyenMai'] * $row_Sach['giagoc'] / 100);
-                                        if ($i == 0) echo '
-                                            <div class="carousel-item active">
-                                                <div class="card">
-                                                    <div class="img-wrapper">
-                                                        <img src="' . $row_hinhanh['url'] . '" alt="">
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">' . $tenSach . '</h5>
-                                                        <div class="d-flex justify-content-between">
-                                                            <p class="card-text">' . number_format($Discount_price, 0, '', '.') . ' đ</p>
-                                                            <p class="card-text text-decoration-line-through" style="color: red">' . number_format($row_Sach['giagoc'], 0, '', '.') . 'đ</p>
-                                                        </div>
-                                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                                    </div>
-                                                </div>
-                                            </div>';
-                                        else echo '
-                                            <div class="carousel-item">
-                                                <div class="card">
-                                                    <div class="img-wrapper">
-                                                        <img src="' . $row_hinhanh['url'] . '" alt="">
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">' . $tenSach . '</h5>
-                                                        <div class="d-flex justify-content-between">
-                                                            <p class="card-text">' . number_format($Discount_price, 0, '', '.') . ' đ</p>
-                                                            <p class="card-text text-decoration-line-through" style="color: red">' . number_format($row_Sach['giagoc'], 0, '', '.') . 'đ</p>
-                                                        </div>
-                                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                                    </div>
-                                                </div>
-                                            </div>'
-                                        ;
-                                        $i++;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                ?>
-
+                <!-- du lieu se do vao day -->
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#khuyenmai_carousel" data-bs-slide="prev" id="km_prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -157,14 +75,14 @@
         </div>
 
         <!-- show response from ajax request -->
-        <div class="collapse show w-100 paginator_collapse" id="km_collapse">
+        <div class="collapse hide w-100 paginator_collapse" id="km_collapse">
             <nav class="w-100 d-flex justify-content-center mb-3"></nav>
             <div class="response row mb-3 g-1 m-auto"></div>
         </div>
     </div>
 
     <!-- Sách tiếng việt -->
-    <div class="container bg-light pb-3" id="vie">
+    <div class="container bg-light pb-3 " style="min-height: 260px;">
         <div class="bookszoneproduct_header">
             <div class="title">
                 <p>Sách tiếng việt</p>
@@ -183,7 +101,8 @@
                                 $Chude_result = mysqli_query($con, $Chude_query);
                                 if (mysqli_num_rows($Chude_result) > 0) {
                                     while ($row_chude = mysqli_fetch_assoc($Chude_result)) {
-                                        echo '<li><a onclick="handleClickVie(\'' . $row_chude['tenChuDe'] . '\', ' . $row_chude['id'] . ');">' . $row_chude['tenChuDe'] . '</a></li>';
+                                        echo'
+                                        <li onclick="loadPage(1, 0,'.$row_chude["id"].', 1, 0, 0, 0, \'#sachtiengviet_collapse\', true);">' . $row_chude['tenChuDe'] . '</li>                        ';
                                     }
                                 }
                             }
@@ -194,64 +113,7 @@
         </div>
         <div id="sachtiengviet_carousel" class="carousel container-lg sanpham_carousel mb-3" data-bs-ride="carousel"> 
             <div class="carousel-inner">
-                <?php
-                    //Lấy các sản phẩm thuộc sách tiếng việt
-                    $Sach_query = "SELECT * FROM sach;";
-                    $Sach_result = mysqli_query($con, $Sach_query);
-                    if (mysqli_num_rows($Sach_result) > 0){
-                        $i = 0; //dung de danh dau phan tu dau tien de tham class acitve cho carousel hoạt động
-                        while ($row_Sach = mysqli_fetch_assoc($Sach_result)){
-                            $id_Sach = $row_Sach['id'];
-                            if($row_Sach['idNgonNgu']=='1'){
-                                $Hinhanhsach_query = "SELECT hinhanhsach.url, hinhanhsach.idSach FROM hinhanhsach WHERE hinhanhsach.idSach = $id_Sach LIMIT 1;";
-                                $Hinhanhsach_result = mysqli_query($con, $Hinhanhsach_query);
-                                if(mysqli_num_rows($Hinhanhsach_result)>0){
-                                    while ($row_hinhanh = mysqli_fetch_assoc($Hinhanhsach_result)){
-                                        $tenSach = limitString($row_Sach['ten'], 22); // Thay 30 bằng độ dài tối đa bạn muốn
-                                        $Discount_price = $row_Sach['giagoc'] - ($row_Sach['phanTramKhuyenMai'] * $row_Sach['giagoc'] / 100) ;
-                                        if ($i == 0) echo'
-                                            <div class="carousel-item active">  
-                                                <div class="card">
-                                                    <div class="img-wrapper">
-                                                        <img src="' . $row_hinhanh['url'] . '" alt="">
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">' . $tenSach . '</h5>
-                                                        <div class="d-flex justify-content-between">
-                                                            <p class="card-text">' . number_format($Discount_price, 0, '', '.') . ' đ</p>
-                                                            <p class="card-text text-decoration-line-through" style="color: red">' . number_format($row_Sach['giagoc'], 0, '', '.') . 'đ</p>
-                                                        </div>
-                                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                                    </div>
-                                                </div>
-                                            </div>'
-                                        ;
-                                        else echo '
-                                            <div class="carousel-item">  
-                                                <div class="card">
-                                                    <div class="img-wrapper">
-                                                        <img src="' . $row_hinhanh['url'] . '" alt="">
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">' . $tenSach . '</h5>
-                                                        <div class="d-flex justify-content-between">
-                                                            <p class="card-text">' . number_format($Discount_price, 0, '', '.') . ' đ</p>
-                                                            <p class="card-text text-decoration-line-through" style="color: red">' . number_format($row_Sach['giagoc'], 0, '', '.') . 'đ</p>
-                                                        </div>
-                                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                                    </div>
-                                                </div>
-                                            </div>'
-                                        ;
-                                        $i++;
-
-                                    }
-                                }
-                            }
-                            
-                        }
-                    }
-                ?>
+                <!-- du lieu se do vao day -->
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#sachtiengviet_carousel" data-bs-slide="prev" id="km_prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -268,13 +130,13 @@
             </button>
         </div>
         <!-- show response from ajax request -->
-        <div id="sachtiengviet_collapse" class="collapse show w-100 paginator_collapse" >
+        <div id="sachtiengviet_collapse" class="collapse hide w-100 paginator_collapse" >
             <div class="response row mb-3 g-1 m-auto"></div>
         </div>
     </div>
 
     <!-- Sách tiếng anh -->
-    <div class="container bg-light pb-3 " id="eng">
+    <div class="container bg-light pb-3 " style="min-height: 260px;">
         <div class="bookszoneproduct_header">
             <div class="title">
                 <p>Sách tiếng anh</p>
@@ -293,8 +155,8 @@
                                                 WHERE chude.idDanhMuc = " . $row_danhmuc['id'];
                                 $Chude_result = mysqli_query($con, $Chude_query);
                                 if (mysqli_num_rows($Chude_result) > 0) {
-                                    while ($row_chude = mysqli_fetch_assoc($Chude_result)) {
-                                        echo '<li><a onclick="handleClickEng(\'' . $row_chude['tenChuDe'] . '\', ' . $row_chude['id'] . ');">' . $row_chude['tenChuDe'] . '</a></li>';
+                                    while ($row_chude = mysqli_fetch_assoc($Chude_result)) { 
+                                        echo '<li  onclick="loadPage(1, 0, '.$row_chude["id"].', '.$row_danhmuc['id'].', 0, 0, 0, \'#sachtienganh_collapse\', true);">'.$row_chude["tenChuDe"].'</li>';
                                     }
                                 }
                             }
@@ -305,61 +167,7 @@
         </div>
         <div id="sachtienganh_carousel" class="carousel container-lg sanpham_carousel mb-3" data-bs-ride="carousel"> 
             <div class="carousel-inner">
-                <?php
-                    //Lấy các sản phẩm thuộc sách tiếng anh
-                    $Sach_query = "SELECT * FROM sach;";
-                    $Sach_result = mysqli_query($con, $Sach_query);
-                    if (mysqli_num_rows($Sach_result) > 0){
-                        $i = 0;
-                        while ($row_Sach = mysqli_fetch_assoc($Sach_result)){
-                            $id_Sach = $row_Sach['id'];
-                            if($row_Sach['idNgonNgu']=='2'){
-                                $Hinhanhsach_query = "SELECT hinhanhsach.url, hinhanhsach.idSach FROM hinhanhsach WHERE hinhanhsach.idSach = $id_Sach LIMIT 1;";
-                                $Hinhanhsach_result = mysqli_query($con, $Hinhanhsach_query);
-                                if(mysqli_num_rows($Hinhanhsach_result)>0){
-                                    while ($row_hinhanh = mysqli_fetch_assoc($Hinhanhsach_result)){
-                                        $tenSach = limitString($row_Sach['ten'], 22); // Thay 30 bằng độ dài tối đa bạn muốn
-                                        $Discount_price = $row_Sach['giagoc'] - ($row_Sach['phanTramKhuyenMai'] * $row_Sach['giagoc'] / 100) ;
-                                        if ($i == 0) echo'
-                                            <div class="carousel-item active">  
-                                                <div class="card">
-                                                    <div class="img-wrapper">
-                                                        <img src="' . $row_hinhanh['url'] . '" alt="">
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">' . $tenSach. '</h5>
-                                                        <div class="d-flex justify-content-between">
-                                                            <p class="card-text">' . number_format($Discount_price, 0, '', '.') . ' đ</p>
-                                                            <p class="card-text text-decoration-line-through" style="color: red">' . number_format($row_Sach['giagoc'], 0, '', '.') . 'đ</p>
-                                                        </div>
-                                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                                    </div>
-                                                </div>
-                                            </div>';
-                                        else echo '
-                                            <div class="carousel-item">
-                                                <div class="card">
-                                                    <div class="img-wrapper">
-                                                        <img src="' . $row_hinhanh['url'] . '" alt="">
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">' . $tenSach . '</h5>
-                                                        <div class="d-flex justify-content-between">
-                                                            <p class="card-text">' . number_format($Discount_price, 0, '', '.') . ' đ</p>
-                                                            <p class="card-text text-decoration-line-through" style="color: red">' . number_format($row_Sach['giagoc'], 0, '', '.') . 'đ</p>
-                                                        </div>
-                                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                                    </div>
-                                                </div>
-                                            </div>'
-                                        ;
-                                        $i++;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                ?>
+                <!-- du lieu se do vao day -->
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#sachtienganh_carousel" data-bs-slide="prev" id="km_prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -378,8 +186,9 @@
         </div>
 
         <!-- show response from ajax request -->
-        <div id="sachtienganh_collapse" class="collapse show w-100 paginator_collapse">
+        <div id="sachtienganh_collapse" class="collapse hide w-100 paginator_collapse">
             <div class="response row mb-3 g-1 m-auto"></div>
+            
         </div>
     </div>
 </main>

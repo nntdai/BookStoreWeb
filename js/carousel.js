@@ -29,7 +29,14 @@ $(document).ready(function() {
             });
 
             element.interval = setInterval(function() {
-                $(element).find('.carousel-control-next').click();
+                if(scrollPosition < carouselWidth - carouselItemWidth) {
+                    scrollPosition += carouselItemWidth;
+                    $(element).find('.carousel-inner').animate({scrollLeft: scrollPosition}, 500);
+                }
+                else {
+                    scrollPosition = 0;
+                    $(element).find('.carousel-inner').animate({scrollLeft: scrollPosition}, 500);
+                }
             }, 3000);
         });
 

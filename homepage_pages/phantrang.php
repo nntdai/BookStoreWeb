@@ -12,18 +12,22 @@
     $page = $_POST["page"];
 
     $sub_query = "";
-    if (isset($_POST["from"])) {
-        $from = $_POST["from"];
-        $sub_query = "and s.giaBan >= $from ";
+    if(isset($_POST["tenSach"]) && $_POST["tenSach"] != "") {
+        $tenSach = $_POST["tenSach"];
+        $sub_query .= "and s.ten like '%$tenSach%' ";
     }
-    if (isset($_POST["to"])) {
-        $to = $_POST["to"];
-        $sub_query .= "and s.giaBan <= $to ";
+
+    if (isset($_POST["price_range"]) && $_POST["price_range"] != "") {
+        $range = $_POST["price_range"];
+        $range = explode("-", $range);
+        $min = $range[0];
+        $max = $range[1];
+        $sub_query .= "and s.giagoc >= $min and s.giagoc <= $max ";
     }
-    if(isset($_POST["theloai"])) {
+    if(isset($_POST["theloai"]) && $_POST["theloai"] != "") {
         //sp co idTheloai = $_POST["theloai"]
         $idTheLoai = $_POST["theloai"];
-        $sub_query = "SELECT * FROM sach WHERE idTheLoai = $idTheLoai";
+        $sub_query .= "and tl.id='$idTheLoai'";
     }
     if(isset($_POST["chude"])) {
         //sp co idTheloai trong bang theloai ma co idChude = $_POST["chude"]
@@ -43,7 +47,7 @@
 
     $sql = "SELECT sach.* 
     FROM `sach` , (
-        SELECT s.id as idSach, cd.id
+        SELECT s.id as idSach
         FROM `sach` s , `theloai` tl , `chude` cd 
         WHERE s.idTheLoai = tl.id and tl.idChuDe = cd.id $sub_query
     ) temp

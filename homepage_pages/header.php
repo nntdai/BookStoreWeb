@@ -100,13 +100,50 @@
             </div>
         </div>
     </div>';
-?>
-    <div class="center_header">
-        <button id="btn_search"><img src="./Image/search.png" alt=""></button>
-    </div>
-    
+?>  
 
+    <div class="dropdowmn col-6 d-flex justify-content-end">
+        <button id="btn_search" data-bs-toggle="dropdown" style="border: 0;">
+            <img src="./Image/search.png" alt="" style="width: 40px;">
+        </button>
+        <div class="dropdown-menu">
+           <form id="searchForm" class="row align-items-start w-100">
+                <div class="col-md-12 mb-1 " > <!-- Thêm lớp mb-3 để tạo khoảng cách dưới -->
+                    <input type="text" placeholder="Tìm kiếm" style="padding: 10px" class="position-relative form-control" name="tenSach">
+                </div>
+                <div class="col-md-6"> 
+                    <select name="theloai" class="form-select">
+                        <option value="" selected>Chọn thể loại</option>
+                        <?php
+                        $sql = "SELECT * FROM theloai"; // Thay thế "theloai" bằng tên bảng chứa các thể loại trong cơ sở dữ liệu của bạn
+                        $result = mysqli_query($con, $sql);
+                        if (mysqli_num_rows($result) > 0) {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $theloai = $row['tenTheLoai'];
+                                echo '<option value="' . $row["id"] . '">' . $theloai . '</option>';
+                            }
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="col-md-6"> <!-- Thêm lớp mb-3 để tạo khoảng cách dưới -->
+                    <select name="price_range" class="form-select">
+                        <option value="">Chọn khoảng giá</option>
+                        <option value="0-100000">Dưới 100,000đ</option>
+                        <option value="100000-500000">100,000đ - 500,000đ</option>
+                    </select>
+                </div>
+                
+                <div class="mb-2"></div>
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-primary w-100">Tìm kiếm</button>
+                </div>
+            </form>
+        </div>
+    </div>
     <div id="searchResults"></div>
+
+    
     <div id="pagination"></div>
     <div class="right_header">
         <div class="cart">
