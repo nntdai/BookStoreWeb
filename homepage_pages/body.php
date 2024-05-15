@@ -1,4 +1,23 @@
+<?php
+    require("./homepage_pages/database.php");
+?>
+<?php
+    function limitString($string, $limit) {
+            if (strlen($string) > $limit) {
+                $string = substr($string, 0, $limit) . '...';
+            }
+            return $string;
+        }
+?>
 <main>
+        
+    <!-- hien thi san pham loc duoc -->
+    <div id="search-books" class="w-100 collapse hide" style="min-height: 300px;">
+        <nav class="w-100 d-flex justify-content-center mb-3"></nav>
+        <div class="response row mb-3 g-1 m-auto container"></div>
+    </div>
+    
+
     <div class="carousel slide container" data-bs-ride="carousel" id="banner_carousel">
         
         <div class="carousel-inner">
@@ -37,78 +56,7 @@
         <!--TODO: can ajax carousel -->
         <div id="khuyenmai_carousel" class="carousel sanpham_carousel mb-3" data-bs-ride="carousel"> 
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="card">
-                        <div class="img-wrapper">
-                            <img src="./Image/image_180222.jpg" alt="">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="card">
-                        <div class="img-wrapper">
-                            <img src="./Image/image_180222.jpg" alt="">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="card">
-                        <div class="img-wrapper">
-                            <img src="./Image/image_180222.jpg" alt="">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="card">
-                        <div class="img-wrapper">
-                            <img src="./Image/image_180222.jpg" alt="">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="card">
-                        <div class="img-wrapper">
-                            <img src="./Image/image_180222.jpg" alt="">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="card">
-                        <div class="img-wrapper">
-                            <img src="./Image/image_180222.jpg" alt="">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
+                <!-- du lieu se do vao day -->
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#khuyenmai_carousel" data-bs-slide="prev" id="km_prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -127,126 +75,120 @@
         </div>
 
         <!-- show response from ajax request -->
-        <div class="collapse show w-100 paginator_collapse" id="km_collapse">
+        <div class="collapse hide w-100 paginator_collapse" id="km_collapse">
             <nav class="w-100 d-flex justify-content-center mb-3"></nav>
             <div class="response row mb-3 g-1 m-auto"></div>
         </div>
     </div>
 
-
-
-            
-
-    <div class="container bg-light pb-3">
+    <!-- Sách tiếng việt -->
+    <div class="container bg-light pb-3 " style="min-height: 260px;">
         <div class="bookszoneproduct_header">
-                <div class="title">
-                    <p>Sách tiếng việt</p>
-                </div>
-                <div class="list">
-                    <li><a href="#">Văn học</a></li>
-                    <li><a href="#">Kinh tế</a></li>
-                    <li><a href="#">Kỹ năng</a></li>
-                    <li><a href="#">Thiếu nhi</a></li>
-                </div>
-            </div>  
-
-        <div id="demo" class="carousel container-lg sanpham_carousel mb-3" data-bs-ride="carousel"> 
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="card">
-                        <div class="img-wrapper">
-                            <img src="./Image/image_180222.jpg" alt="">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="card">
-                        <div class="img-wrapper">
-                            <img src="./Image/image_180222.jpg" alt="">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="card">
-                        <div class="img-wrapper">
-                            <img src="./Image/image_180222.jpg" alt="">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="card">
-                        <div class="img-wrapper">
-                            <img src="./Image/image_180222.jpg" alt="">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="card">
-                        <div class="img-wrapper">
-                            <img src="./Image/image_180222.jpg" alt="">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="card">
-                        <div class="img-wrapper">
-                            <img src="./Image/image_180222.jpg" alt="">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
+            <div class="title">
+                <p>Sách tiếng việt</p>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev" id="km_prev">
+            <ul class="list">
+                <?php
+                    //Lấy các chủ đề thuộc sách tiếng việt
+                    $Danhmuc_query = "SELECT danhmuc.id, danhmuc.tenDanhMuc FROM danhmuc;";
+                    $Danhmuc_result = mysqli_query($con, $Danhmuc_query);
+                    $str2 = 'Sách Trong Nước'; 
+                    if (mysqli_num_rows($Danhmuc_result) > 0) {
+                        while ($row_danhmuc = mysqli_fetch_assoc($Danhmuc_result)) {
+                            $result = strcmp($row_danhmuc['tenDanhMuc'],$str2); //So sánh và chỉ xuất ra danh mục bằng Sách Tiếng Việt
+                            if($result === 0){ 
+                                $Chude_query = "SELECT chude.id, chude.tenChuDe, chude.idDanhMuc FROM `chude` WHERE chude.idDanhMuc = " . $row_danhmuc['id'];
+                                $Chude_result = mysqli_query($con, $Chude_query);
+                                if (mysqli_num_rows($Chude_result) > 0) {
+                                    while ($row_chude = mysqli_fetch_assoc($Chude_result)) {
+                                        echo'
+                                        <li onclick="loadPage(1, 0,'.$row_chude["id"].', 1, 0, 0, 0, \'#sachtiengviet_collapse\', true);">' . $row_chude['tenChuDe'] . '</li>                        ';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ?>
+            </ul>
+        </div>
+        <div id="sachtiengviet_carousel" class="carousel container-lg sanpham_carousel mb-3" data-bs-ride="carousel"> 
+            <div class="carousel-inner">
+                <!-- du lieu se do vao day -->
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#sachtiengviet_carousel" data-bs-slide="prev" id="km_prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next" id="km_next">
+            <button class="carousel-control-next" type="button" data-bs-target="#sachtiengviet_carousel" data-bs-slide="next" id="km_next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <div class="more">
+            <button data-bs-target="#sachtiengviet_collapse" data-bs-toggle="collapse">
+                Xem thêm
+            </button>
+        </div>
+        <!-- show response from ajax request -->
+        <div id="sachtiengviet_collapse" class="collapse hide w-100 paginator_collapse" >
+            <div class="response row mb-3 g-1 m-auto"></div>
+        </div>
+    </div>
+
+    <!-- Sách tiếng anh -->
+    <div class="container bg-light pb-3 " style="min-height: 260px;">
+        <div class="bookszoneproduct_header">
+            <div class="title">
+                <p>Sách tiếng anh</p>
+            </div>
+            <ul class="list">
+                <?php
+                    //Lấy các chủ đề thuộc sách tiếng anh
+                    $Danhmuc_query = "SELECT danhmuc.id, danhmuc.tenDanhMuc FROM danhmuc;";
+                    $Danhmuc_result = mysqli_query($con, $Danhmuc_query);
+                    $str2 = 'Foreign Books'; 
+                    if (mysqli_num_rows($Danhmuc_result) > 0) {
+                        while ($row_danhmuc = mysqli_fetch_assoc($Danhmuc_result)) {
+                            $result = strcmp($row_danhmuc['tenDanhMuc'],$str2); //So sánh và chỉ xuất ra danh mục bằng Sách Tiếng anh
+                            if($result === 0){ 
+                                $Chude_query = "SELECT chude.id, chude.tenChuDe, chude.idDanhMuc FROM `chude` 
+                                                WHERE chude.idDanhMuc = " . $row_danhmuc['id'];
+                                $Chude_result = mysqli_query($con, $Chude_query);
+                                if (mysqli_num_rows($Chude_result) > 0) {
+                                    while ($row_chude = mysqli_fetch_assoc($Chude_result)) { 
+                                        echo '<li  onclick="loadPage(1, 0, '.$row_chude["id"].', '.$row_danhmuc['id'].', 0, 0, 0, \'#sachtienganh_collapse\', true);">'.$row_chude["tenChuDe"].'</li>';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ?>        
+            </ul>
+        </div>
+        <div id="sachtienganh_carousel" class="carousel container-lg sanpham_carousel mb-3" data-bs-ride="carousel"> 
+            <div class="carousel-inner">
+                <!-- du lieu se do vao day -->
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#sachtienganh_carousel" data-bs-slide="prev" id="km_prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#sachtienganh_carousel" data-bs-slide="next" id="km_next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
 
         <div class="more">
-            <button data-bs-target="#sp_collapse" data-bs-toggle="collapse">
+            <button data-bs-target="#sachtienganh_collapse" data-bs-toggle="collapse">
                 Xem thêm
             </button>
         </div>
 
         <!-- show response from ajax request -->
-        <div class="collapse show w-100 paginator_collapse" id="sp_collapse">
+        <div id="sachtienganh_collapse" class="collapse hide w-100 paginator_collapse">
             <div class="response row mb-3 g-1 m-auto"></div>
             
         </div>
     </div>
-    
- </div>
 </main>
