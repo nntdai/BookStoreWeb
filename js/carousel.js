@@ -1,3 +1,5 @@
+
+
 function addEventListenerToCarousel(target) {
     if (window.matchMedia('(min-width: 576px)').matches) {
         let carousel = new bootstrap.Carousel(target, {
@@ -66,24 +68,28 @@ function updateCarousel(requestData, target) { //taget co class 'carousel'
             }
             
             //hien thi san pham nhan duoc
-            let output = document.querySelector(target+" .carousel-inner");
-            output.innerHTML = "";
+            let output = $(target).find(".carousel-inner");
             products.forEach(product => {
-                output.innerHTML += `
-                    <div class="carousel-item">
-                        <div class="card" style="width: 320px">
-                            <div class="img-wrapper">
-                                <img src="${product.hinhAnh}" alt="Ảnh ${product.ten}">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title text-nowrap overflow-hidden">${product.ten}</h5>
-                                <p class="card-text text-primary"></p>${product.giagoc}đ</p>
-                                <p class="card-text" style="height: 100px; overflow: auto;">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
+                let item = document.createElement("div");
+                item.classList.add("carousel-item");
+                item.innerHTML += `
+                    <div class="card" style="width: 320px">
+                        <div class="img-wrapper">
+                            <img src="${product.url}" alt="Ảnh ${product.ten}">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title text-nowrap overflow-hidden">${product.ten}</h5>
+                            <p class="card-text text-primary"></p>${product.giagoc}đ</p>
+                            <p class="card-text" style="height: 100px; overflow: auto;">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>
+                            <a class="btn btn-primary">Xem chi tiết</a>
                         </div>
                     </div>
                 `;
+                output.append(item);
+                //them su kien click vao card
+                $(item).find("a").click(function(){
+                    updateAndShowDetailModal(product);
+                });
             });
 
             //active first item...

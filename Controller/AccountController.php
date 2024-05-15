@@ -7,6 +7,7 @@ include_once("Model/AccountModel.php");
 
 class AccountController {
     public function get() {
+        //TODO: not check permission
         if(isset($_GET["soDienThoai"])) {
             $modelAccount = new AccountModel();
             $account = $modelAccount->getAccountDetail($_GET["soDienThoai"]);
@@ -22,10 +23,10 @@ class AccountController {
     }
 
     public function post() {
-        if(isset($_POST["action"])) {
-            switch ($_POST["action"]) {
+        if(isset($_REQUEST["action"])) {
+            switch ($_REQUEST["action"]) {
                 case "add":
-                    //chua check quyen
+                    //TODO: not check permission
                     $modelAccount = new AccountModel();
                     try {
                         $result = $modelAccount->createAccount($_POST["soDienThoai"], $_POST["matKhau"], $_POST["email"], $_POST["idChucVu"], $_POST["status"], $_POST["hoTen"]);
@@ -35,17 +36,33 @@ class AccountController {
                     }
                     break;
                 case "update":
-                    //chua check quyen
+                    //TODO: not check permission
                     $modelAccount = new AccountModel();
                     try {
-                        $result = $modelAccount->updateAccount($_POST["soDienThoai"], $_POST["matKhau"], $_POST["email"], $_POST["idChucVu"], $_POST["status"], $_POST["hoTen"]);
+                        $fields = array();
+                        if(isset($_POST["matKhau"]) && $_POST["matKhau"] != "") {
+                            $fields["matKhau"] = $_POST["matKhau"];
+                        }
+                        if(isset($_POST["email"]) && $_POST["email"] != "") {
+                            $fields["email"] = $_POST["email"];
+                        }
+                        if(isset($_POST["idChucVu"]) && $_POST["idChucVu"] != "") {
+                            $fields["idChucVu"] = $_POST["idChucVu"];
+                        }
+                        if(isset($_POST["status"]) && $_POST["status"] != "") {
+                            $fields["status"] = $_POST["status"];
+                        }
+                        if(isset($_POST["hoTen"]) && $_POST["hoTen"] != "") {
+                            $fields["hoTen"] = $_POST["hoTen"];
+                        }
+                        $result = $modelAccount->updateAccount($_POST["soDienThoai"], $fields);
                         echo json_encode(array("status" => "success"));
                     } catch (Exception $e) {
                         echo json_encode(array("status" => "fail", "message" => $e->getMessage()));
                     }
                     break;
                 case "delete":
-                    //chua check quyen
+                    //TODO: not check permission
                     $modelAccount = new AccountModel();
                     try {
                         $result = $modelAccount->deleteAccount($_POST["soDienThoai"]);
@@ -229,21 +246,10 @@ class AccountController {
         return $result;
     }
 
-    public function getModal() {
-        // Lấy modal đăng nhập
-    }
-
-    public function getScriptModal() {
-        // Lấy script cho modal đăng nhập
-    }
-
-    public function getPage() {
-        //Lấy trang đăng nhập
-    }
-
-    public function getScriptPage() {
-        //Lấy script cho trang đăng nhập
-        echo "<script src='js/login.js'></script>";
+    public function getAccountDetail($soDienThoai) {
+        $AccountModel = new AccountModel();
+        $result = $AccountModel->getAccountDetail($soDienThoai);
+        return $result;
     }
 }
 

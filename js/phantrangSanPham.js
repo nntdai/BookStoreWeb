@@ -1,4 +1,6 @@
+
 function loadPage(requestData, target){
+    console.log(requestData);
     $.ajax({
         url: "homepage_pages/phantrang.php",
         method: "POST",
@@ -48,23 +50,23 @@ function loadPage(requestData, target){
             if (data.last_page == 1) html = "";
             $(target + "> nav").html(html);
 
-            //them event cho thanh phan trang
-            $(target + " .go-to-last-btn").click(function(){
-                if ($(this).hasClass("active")) return;
-                $(this).addClass("active").siblings().removeClass("active");
+            $(target).off("click", ".page-index").on("click", ".page-index", function(e){
+                if ($(e.target).hasClass("active")) return;
+                $(e.target).addClass("active").siblings().removeClass("active");
                 let copy = JSON.parse(JSON.stringify(requestData));
-                copy.page = data.last_page;
-                loadPage(copy, target);
-            });
-            $(target).on("click", ".page-index", function(){
-                if ($(this).hasClass("active")) return;
-                $(this).addClass("active").siblings().removeClass("active");
-                let copy = JSON.parse(JSON.stringify(requestData));
-                copy.page = $(this).text();
+                copy.page = $(e.target).text();
                 loadPage(copy, target);
             });
             
-            $(target).on("click", ".go-to-first-btn", function(){
+            let lastPage = data.last_page;//luu lai trang cuoi cung
+            $(target).off("click", ".go-to-last-btn").on("click", ".go-to-last-btn", function(e){
+                if ($(e.target).hasClass("active")) return;
+                $(e.target).addClass("active").siblings().removeClass("active");
+                let copy = JSON.parse(JSON.stringify(requestData));
+                copy.page = lastPage;
+                loadPage(copy, target);
+            });
+            $(target).off("click", ".go-to-first-btn").on("click", ".go-to-first-btn", function(e){
                 let copy = JSON.parse(JSON.stringify(requestData));
                 copy.page = 1;
                 loadPage(copy, target);
@@ -79,21 +81,27 @@ function loadPage(requestData, target){
                 wrapper.innerHTML = `
                     <div class="card" style="width: 320px">
                         <div class="img-wrapper">
-                            <img src="${product.hinhAnh}" alt="Ảnh ${product.ten}">
+                            <img src="${product.url}" alt="Ảnh ${product.ten}">
                         </div>
                         <div class="card-body">
                             <h5 class="card-title text-nowrap overflow-hidden"> ${product.ten} </h5>
                             <p class="card-text text-primary"></p>${product.giagoc}đ</p>
                             <p class="card-text" style="height: 100px; overflow: auto;">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <a class="btn btn-primary" id="btn-showDetail">Xem chi tiết</a>
                         </div>
                     </div>
                 `;
                 output.appendChild(wrapper);
+                //them su kien click vao card
+                $(wrapper).find("#btn-showDetail").click(function(){
+                    updateAndShowDetailModal(product);
+                });
             });
+
         }
     });
 }
+
 
 $(document).ready(function() {
     loadPage({
@@ -108,4 +116,8 @@ $(document).ready(function() {
         page: 1,
         idDanhMuc: 2 //idDanhMuc: 2 la sach ngoai van
     }, "#sachNuocNgoai_collapse");
+
+    $("#btn_thongtintaikhoan").on("click", function() {
+        $("#thongtintaikhoan").modal("show");
+    });
 });

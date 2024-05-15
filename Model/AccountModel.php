@@ -31,7 +31,7 @@ class AccountModel {
     public function getAccountDetail($soDienThoai) {
         $allAccount = $this->getAllAccount();
         foreach($allAccount as $account) {
-            if($account->getSoDienThoai() == $soDienThoai) {
+            if($account->soDienThoai == $soDienThoai) {
                 return $account;
             }
         }
@@ -66,9 +66,20 @@ class AccountModel {
         return false;
     }
 
-    public function updateAccount($soDienThoai, $matKhau, $email, $idChucVu, $status, $hoTen) {
-        $sql = "UPDATE taikhoan SET matKhau = '$matKhau', email = '$email', idChucVu = $idChucVu, status = $status, hoTen = '$hoTen' WHERE soDienThoai = '$soDienThoai'";
-        $result = DatabaseConnection::getInstance()->query($sql);
+    public function updateAccount($soDienThoai, $fields) {
+        $query = "UPDATE taikhoan SET ";
+
+        foreach ($fields as $field => $value) {
+            $query .= "`$field` = '$value', ";
+        }
+
+        // Remove the last comma and space
+        $query = rtrim($query, ', ');
+        
+        $query .= " WHERE soDienThoai = $soDienThoai";
+
+        // Execute the query with the parameters
+        $result = DatabaseConnection::getInstance()->query($query);
         if ($result) {
             return true;
         }

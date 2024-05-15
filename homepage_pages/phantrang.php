@@ -49,15 +49,11 @@
         $sub_query .= "and s.phanTramKhuyenMai > 0 ";
     }
 
-    $sql = "SELECT sach.* 
-    FROM `sach` , (
-        SELECT s.id as idSach
-        FROM `sach` s , `theloai` tl , `chude` cd , `danhmuc` dm
-        WHERE s.idTheLoai = tl.id and tl.idChuDe = cd.id $sub_query
-    ) temp
-    WHERE sach.id = temp.idSach";
+    $sql = "SELECT *
+        FROM `sach` s , `theloai` tl , `chude` cd , `danhmuc` dm, `nhaxuatban` nxb, `hinhanhsach` hinh
+        WHERE s.idTheLoai = tl.id and tl.idChuDe = cd.id and s.idNXB = nxb.id and s.id = hinh.idSach $sub_query
+    ";
 
-    // $sql = "SELECT * FROM `sach` s , `theloai` tl , `chude` cd WHERE s.idTheLoai = tl.id and tl.idChuDe = cd.id ".$sub_query.";";
     $result = DatabaseConnection::getInstance()->query($sql);//dung de tinh last_page
     $last_page = $result->num_rows / $ITEM_PER_PAGE + ($result->num_rows % $ITEM_PER_PAGE != 0);
 

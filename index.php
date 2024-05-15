@@ -1,8 +1,7 @@
 <?php 
-    include_once("Model/EntityAccount.php");
+    include_once("Controller/AccountController.php");
     session_start();
 
-    $accessible = array("home", "account", "homeadmin", "admin");
     $_REQUEST["controller"] = isset($_REQUEST["controller"]) ? $_REQUEST["controller"] : "home";
     
     $controller = ucfirst($_REQUEST["controller"])."Controller";
@@ -15,10 +14,12 @@
         die();
     }
 
-    //kiem tra accessible
-    if(!in_array(strtolower($_REQUEST["controller"]), $accessible)) {
-        echo "Ban khong co quyen truy cap trang nay";
-        die();
-    }
-    $controller->get();die();
+    //cap nhat lai thong tin tai khoan khi truy cap trang
+    if (isset($_SESSION["user"])) { 
+        $temp = new AccountController();
+        $_SESSION["user"] = $temp->getAccountDetail($_SESSION["user"]->soDienThoai);
+    } 
+
+    $controller->get();
+    die();
 ?>

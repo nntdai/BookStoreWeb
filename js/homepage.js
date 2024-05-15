@@ -58,7 +58,75 @@ $(window).on('resize', function() {
       location.reload();
   }
 });
+function updateAndShowDetailModal(product){
+  let modal = $("#productModal");
+  modal.find(".productName").text(product.ten);
+  modal.find(".productPrice").text(product.giagoc+"đ");
+  modal.find(".productDescription").text(product.moTa);
+  modal.find(".productImage").attr("src", product.url);
+  modal.find(".productAuthor").text(product.hoTen);
+  modal.find(".productTranslator").text(product.tenNguoiDich);
+  modal.find(".productPublisher").text(product.tenNXB);
+  modal.find(".productPublishYear").text(product.namXB);
+  modal.find(".productCategory").text(product.tenTheLoai);
+  modal.find(".productPageCount").text(product.soTrang);
+  modal.find(".productWeight").text(product.trongLuong+" gram");
+  modal.find(".productDimension").text(product.kichThuocBaoBi);
 
+    //update event add to cart
+    modal.find("#btn_addToCart").off("click").click(function(){
+        addToCart(product);
+        $("#productModal").modal("hide");
+    });
+
+  modal.modal("show");
+}
+
+function addToCart(product){
+    let cart = JSON.parse(localStorage.getItem("cart"));
+    if (!cart) cart = [];
+    let found = false;
+    cart.forEach(item => {
+        if (item.id == product.id) {
+            item.quantity++;
+            found = true;
+        }
+    });
+    if (!found) {
+        cart.push({
+            id: product.id,
+            ten: product.ten,
+            url: product.url,
+            giagoc: product.giagoc,
+            quantity: 1
+        });
+    }
+    localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+
+$("#btn_showCart").click(function(){
+    //load gio hang
+    let cart = JSON.parse(localStorage.getItem("cart"));
+    if (!cart) cart = [];
+    let content = $("#cartContent");
+    content.html("");
+    cart.forEach(item => {
+        let row = `
+            <li class="row">
+                <div class="col-3">
+                    <img src="${item.url}" alt="Ảnh ${item.ten}" style="width: 100%">
+                </div>
+                <div class="col-9">
+                    <h5>${item.ten}</h5>
+                    <p>${item.giagoc}đ x ${item.quantity}</p>
+                </div>
+            </li>
+        `;
+        content.append(row);
+    });
+
+});
 
 
 
