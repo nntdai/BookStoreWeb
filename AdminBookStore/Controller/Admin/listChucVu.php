@@ -1,14 +1,12 @@
 <?php
     include_once('C:/xampp/htdocs/AdminBookStore/Model/Admin/listchucvu.php');
     class listChucVu{
+        private $ChucVu_Model;
         public function __construct(){
-            $ChucVu_Model=new ChucVuModel();
-            $ChucVu=$ChucVu_Model->ChucVuList();
-            include_once('C:/xampp/htdocs/AdminBookStore/View/Admin/Pages/ChucVu/ChucVu.php');
+            $this->ChucVu_Model=new ChucVuModel();
         }
         public function getlist(){
-            $ChucVu_Model=new ChucVuModel();
-            return $ChucVu=$ChucVu_Model->ChucVuList();
+            return $this->ChucVu_Model->ChucVuList();
         }
         
     }

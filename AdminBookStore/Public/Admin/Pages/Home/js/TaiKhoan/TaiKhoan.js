@@ -330,3 +330,34 @@ function close_remove_account(){
     data.style.display="none"
     window.location.href = 'index.php?controller=account';
 }
+function Search(){
+    var cbb=document.getElementById('LocSearch').value
+    var id=document.getElementById('cboChucVuSearch').value
+    var text=document.getElementById('SearchText').value
+    if(cbb==1 || cbb==2 || cbb==3){
+        if(text==''){
+            if(id==''){
+                window.location.href='index.php?controller=account'
+            }else{
+                window.location.href='index.php?controller=account&send='+id
+            }
+        }else{
+            if(id==''){
+                window.location.href='index.php?controller=account'
+            }else{
+                window.location.href='index.php?controller=account&send='+id
+            }
+        }
+    }
+}
+function remove_text_add(){
+    if(confirm("Bạn có chắc muốn xóa các trường ?")==true){
+        document.getElementById('PhoneText').value=''
+        document.getElementById('MailText').value=''
+        document.getElementById('NameText').value=''
+        document.getElementById('PassText').value=''
+        document.getElementById('PassAgainText').value=''
+        document.getElementById('cboChucVu').value=''
+        alert("Xóa thành công !")
+    }
+}

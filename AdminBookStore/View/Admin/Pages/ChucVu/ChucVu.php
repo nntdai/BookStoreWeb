@@ -1,3 +1,8 @@
+<?php
+    include_once("Controller/Admin/listChucVu.php");
+    $Chucvu_Control=new listChucVu();
+    $ChucVu=$Chucvu_Control->getlist();
+?>
 <!DOCTYPE html>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <html>
@@ -28,7 +33,7 @@
 	<div id="container-listBook">
 	<h2>Danh sách chức vụ</h2>
     <table class="table table-hover">
-    <tr class="table-dark">
+    <tr>
 	    <th scope="col">Mã chức vụ</th>
         <th scope="col" >Tên chức vụ</th>
         <th scope="col">Trạng thái</th>

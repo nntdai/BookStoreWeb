@@ -1,12 +1,11 @@
 <?php
     include_once("C:/xampp/htdocs/AdminBookStore/Controller/Admin/listTaiKhoan.php");
-    $TaiKhoan_Model=new TaiKhoanModel();
-    $TaiKhoan=$TaiKhoan_Model->get_all();
-    $ChucVu_Model=new ChucVuModel();
-    $ChucVu=$ChucVu_Model->ChucVuList();
+    $TaiKhoan_Control=new listTaiKhoan();
+    $TaiKhoan=$TaiKhoan_Control->get_all_account();
+    $ChucVu=$TaiKhoan_Control->get_all_Chucvu();
     if(isset($_GET['Phone'])){
         $Phone=$_GET['Phone'];
-        $TaiKhoan_update=$TaiKhoan_Model->getByPhone($Phone);
+        $TaiKhoan_update=$TaiKhoan_Control->getByPhone($Phone);
         $phone=$TaiKhoan_update['soDienThoai'];
         $name=$TaiKhoan_update['hoTen'];
         $mail=$TaiKhoan_update['email'];
@@ -16,11 +15,22 @@
     if(isset($_GET['PhoneDelete'])){
         $Phoneremove=$_GET['PhoneDelete'];
     }
+    if(isset($_GET['send'])){
+        if(isset($_GET['name'])){
+
+        }elseif(isset($_GET['mail'])){
+
+        }elseif(isset($_GET['number'])){
+
+        }else{
+            $Search_TK=$TaiKhoan_Control->getByChucVu($_GET['send']);
+        }
+
+    }
+        
 ?>
 <!DOCTYPE html>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <html>
 <head>
 	<link rel="stylesheet" href="Public/Admin/Pages/Home/TaiKhoan.css">
@@ -74,7 +84,7 @@
                 <div id="CBError"></div> 
             </div>
             <div>
-                <input type="button" id="remove_add" value="Xóa trắng">
+                <input type="button" id="remove_add" value="Xóa trắng" onclick="remove_text_add()">
                 <input type="submit" id="Addbtn" name="Addbtn" value="Thêm tài khoản" onclick="send_data()">
             </div>
             
@@ -131,7 +141,7 @@
                 <div id="CBError_update"></div> 
             </div>
             <div>
-                <input type="button" id="remove_update" value="Xóa trắng">
+                <input type="button" id="remove_update" value="Hủy" onclick="close_update_account()">
                 <input type="submit" id="Updatebtn" name="Updatebtn" value="Cập nhật tài khoản" onclick="send_data_update()">
             </div>
             
@@ -142,7 +152,7 @@
     <form method="POST" id="remove_account" action="" onsubmit="return false">
         <div id="khung_remove">
             <div style="margin:10px; text-align: center; height:26px">
-                <img src="/AdminBookStore/Image/close.png" height="25px" width="25px" style="float:right" onclick="close_remove_account()">
+                <img src="Image/close.png" height="25px" width="25px" style="float:right" onclick="close_remove_account()">
             </div>
                 <h2 style="margin-bottom:30px">Xóa tài khoản</h2>
             <div class="intro_remove">
@@ -164,7 +174,12 @@
 	<h3 style="text-align:left; margin-left:10px">Danh sách tài khoản</h3>
     <div style="text-align:left; height:auto; margin-bottom:-15px; margin-left:10px">
         <b>Tìm kiếm : </b>
-        <input type="text" class="search" style="width: 250px">
+        <input type="text" id="SearchText" class="search" style="width: 250px">
+        <select id="LocSearch" name="LocSearch" class="search" style="width: 150px;">
+            <option value='1'>Số điện thoại</option>
+            <option value='2'>Email</option>
+            <option value='3'>Họ tên</option>
+        </select>
         <b>Chức vụ : </b>
         <select id="cboChucVuSearch" name="cboChucVu" class="search" style="width: 150px;">
             <option value=''>Chọn</option>
@@ -174,23 +189,54 @@
                     }
                 ?>
         </select>
-        <input type="button" value="Áp dụng" style="margin-bottom:-9px; height: 30px; color: white; background-color:dodgerblue; border-color:dodgerblue; width:100px; border-radius:5px">
+        <input type="button" name="send" id="send" value="Áp dụng" style="margin-bottom:-9px; height: 30px; color: white; background-color:dodgerblue; border-color:dodgerblue; width:100px; border-radius:5px" onclick="Search()">
     </div>
     <table class="table table-hover" style="margin-bottom:50px">
-    <tr class="table-dark">
+    <tr>
 	    <th scope="col">Số điện thoại</th>
         <th scope="col" >Email</th>
         <th scope="col">Họ và tên</th>
+	    <th scope="col">Mật khẩu</th>
 	    <th scope="col">Chức vụ</th>
         <th scope="col">Trạng thái</th>
         <th scope="col">Sửa</th>
         <th scope="col">Xóa</th>
     </tr> 
 	<?php
-		foreach ($TaiKhoan as $tk){       
+        if(isset($_GET["send"])){
+            foreach ($Search_TK as $tk){       
+                echo "<th>".$tk['soDienThoai']."</th>";
+                echo "<th>".$tk['email']."</th>";
+                echo "<th>".$tk['hoTen']."</th>";
+                echo "<th>".$tk['mauKhau']."</th>";
+                echo "<th>".$tk['ten']."</th>";
+                if($tk['status']==1){
+                    echo "<th>Đang hoạt động</th>";
+                }else{
+                    echo "<th>Không hoạt động</th>";
+                }
+                
+                echo '<th>		
+                    <a href=index.php?controller=account&Phone='.$tk['soDienThoai'].'>
+                        <ion-icon name="create-outline"></ion-icon>
+                    </a>
+                    </th>
+                    <th>
+                  <a href=index.php?controller=account&PhoneDelete='.$tk['soDienThoai'].'>
+                  <ion-icon name="trash-outline"></ion-icon>
+                    </a>
+          
+                  </th>';
+            echo "<tr/>";;
+                //   $message="Hello";
+                //   echo "<script>alert('$message');</script>";
+                }
+        }else{
+            foreach ($TaiKhoan as $tk){       
         echo "<th>".$tk['soDienThoai']."</th>";
         echo "<th>".$tk['email']."</th>";
         echo "<th>".$tk['hoTen']."</th>";
+        echo "<th>".$tk['matKhau']."</th>";
         echo "<th>".$tk['ten']."</th>";
         if($tk['status']==1){
             echo "<th>Đang hoạt động</th>";
@@ -213,6 +259,8 @@
         //   $message="Hello";
         //   echo "<script>alert('$message');</script>";
 	    }
+        }
+		
         if(isset($_GET['Phone'])){
             echo '<script>var data=document.getElementById("khung_hinh_update")
             data.style.display="block"</script>';

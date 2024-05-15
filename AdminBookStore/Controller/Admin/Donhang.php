@@ -9,7 +9,7 @@
         private $tinhtrangdon_Model;
         public function __construct(){
             $this->Donhang_Model = new Donhang_Model();
-            $this->Giohang_Model = new Giohang_Model();
+            $this->Giohang_Model = new giohang_Model();
             $this->tinhtrangdon_Model = new tinhtrangdonhang_Model();
         }
         public function getAllDonhangList(){

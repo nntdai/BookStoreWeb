@@ -33,7 +33,6 @@ function open_Detail(){
     var data=document.getElementById('khung_hinh_chitietgiohang');
     data.style.display="block";
 }
-function close_Detail(){
-    var data=document.getElementById('khung_hinh_chitietgiohang');
-    data.style.display="none";
+function close_Detail(id){
+    window.location.href='index.php?controller=order&madon='+id
 }

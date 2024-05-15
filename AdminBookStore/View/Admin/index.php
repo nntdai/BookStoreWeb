@@ -210,6 +210,12 @@ table {
     </style>
 </head>
 <body>
+    <?php
+    if (!empty($_SESSION['username'])&&($_SESSION['username']['ten']=='Admin'))
+	{
+        header('Location : View/Client/login_admin.php');
+    }
+    ?>
     <!-- Header -->
    
     <div class="admin">
