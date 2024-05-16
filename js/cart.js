@@ -13,6 +13,11 @@ function itemDelete(item_id, cart){
     });
 }
 $('#purchase_button').click(function(){
+    let product = document.getElementsByClassName('product_panel');
+    if(product.length == 0){
+        alert("Hãy thêm sản phẩm");
+        return;
+    }
     var datetime = new Date();
     document.getElementById('order_date').textContent = formatDateToSQL(datetime);
     document.getElementById("order_wrapper_cart").style.display = 'block';
@@ -31,11 +36,6 @@ function hideOrderPopup(){
   }
 
 $('#cartSubmit').click(function() {
-    let product = document.getElementsByClassName('product_panel');
-    if(product.length == 0){
-        alert("Hãy thêm sản phẩm");
-        return;
-    }
     var cart_price = document.querySelector('#cart_total_price').innerHTML
     var total_price = parseInt(cart_price.substring(0, cart_price.indexOf(' ')));
     var cart_id = document.getElementById('cart_id').innerHTML;

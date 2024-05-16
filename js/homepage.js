@@ -84,17 +84,7 @@ function updateAndShowDetailModal(product){
 
 function addToCart(product){
     let cart = JSON.parse(localStorage.getItem("cart"));
-
     let phonenum = document.getElementById("soDienThoai").value;
-    if (!cart) cart = [];
-    let found = false;
-    // cart.forEach(item => {
-    //     if (item.id == product.id) {
-    //         item.quantity++;
-    //         found = true;
-    //     }
-    // });
-    if (!found) {
       $.ajax({
         url: './homepage_pages/add_to_cart.php', // URL of your PHP script
         type: 'POST',
@@ -113,11 +103,10 @@ function addToCart(product){
             giagoc: product.giagoc,
             quantity: 1
         });
-    }
     localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-
+//chua dung den
 $("#btn_showCart").click(function(){
     //load gio hang
     let cart = JSON.parse(localStorage.getItem("cart"));
@@ -140,7 +129,6 @@ $("#btn_showCart").click(function(){
     });
 
 });
-
 
 let shopping_cart = document.getElementById('btn_showCart');
 shopping_cart.addEventListener('click' , function(event){

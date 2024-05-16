@@ -1,1 +1,0 @@
-$("#navHome").addClass("active");
