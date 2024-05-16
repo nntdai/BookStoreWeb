@@ -41,7 +41,7 @@ function limitString($string, $limit) {
                                         <p class="card-text " >' . number_format($Discount_price, 0, '', '.') . ' đ</p>
                                         <p class="card-text text-decoration-line-through" style="color: red">' . number_format($row_Sach['giagoc'], 0, '', '.') . 'đ</p>    
                                     </div>
-                                    <a href="./thongtinSP.php?id='.$row_Sach["id"].'" class="btn btn-primary">Xem thông tin</a>
+                                    <a href="#" class="btn btn-primary">Go somewhere</a>
                                 </div>
                             </div>
                         </div>';

@@ -12,9 +12,22 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- link jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- Font Awesome Icon -->
+    <script src="https://kit.fontawesome.com/84ceef1c7f.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="./css/carousel.css">
+
+     <style>
+        .page-item {
+            cursor: pointer;
+        }
+     </style>
 </head>
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
 <body>
     <!-- Header -->
     <?php  require("./homepage_pages/header.php"); ?>
@@ -25,14 +38,30 @@
     <!-- Footer -->
     <?php require("./homepage_pages/footer.php"); ?> 
 
+    <!-- Modal -->
     <?php 
-        include("View/auth/frmdangnhap.php");
-        include("View/auth/frmdangki.php");
-        include("View/auth/statusModal.php");
+        include("View/account/frmdangnhap.php");
+        include("View/account/frmdangki.php");
+        include("View/account/statusModal.php");
     ?>
+    <!-- Detail Modal -->
+    <?php include("homepage_pages/detailModal.php"); ?>
+    <?php
+        if(isset($_SESSION["user"])){
+            include_once("./homepage_pages/frmThongTinTaiKhoan.php");
+            include_once("./homepage_pages/frmThongTinDonHang.php");
+            
+        }
+    ?>
+
 </body>
     <script src="./js/homepage.js"></script>
     <script src="./js/authentication.js"></script>
     <script src="./js/carousel.js"></script>
     <script src="./js/phantrangSanPham.js"></script>
+    <script src="./js/Locvatimkiem.js"></script>
+    <?php
+    if(isset($_SESSION["user"])) { ?>
+        <script src="js/suaThongTinTaiKhoan.js"></script>
+    <?php } ?>
 </html>

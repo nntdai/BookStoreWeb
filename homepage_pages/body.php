@@ -3,11 +3,11 @@
 ?>
 <?php
     function limitString($string, $limit) {
-            if (strlen($string) > $limit) {
-                $string = substr($string, 0, $limit) . '...';
-            }
-            return $string;
+        if (strlen($string) > $limit) {
+            $string = substr($string, 0, $limit) . '...';
         }
+        return $string;
+    }
 ?>
 <main>
         
@@ -17,9 +17,8 @@
         <div class="response row mb-3 g-1 m-auto container"></div>
     </div>
     
-
+    <!-- Banner -->
     <div class="carousel slide container" data-bs-ride="carousel" id="banner_carousel">
-        
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img src="Image\Banner_Quatang_310x210.png" class="d-block w-100 m-auto" alt="...">
@@ -46,6 +45,7 @@
         </div>
     </div>
 
+    <!-- Khuyến mãi -->
     <div class="container-xl bg-light pb-3">
         <div class="discount_header">
             <p>Khuyến mãi</p>
@@ -54,7 +54,7 @@
         </div>  
 
         <!--TODO: can ajax carousel -->
-        <div id="khuyenmai_carousel" class="carousel sanpham_carousel mb-3" data-bs-ride="carousel"> 
+        <div id="khuyenmai_carousel" class="carousel collapse show sachKhuyenMaiData sanpham_carousel mb-3" data-bs-ride="carousel"> 
             <div class="carousel-inner">
                 <!-- du lieu se do vao day -->
             </div>
@@ -69,126 +69,115 @@
         </div>
 
         <div class="more">
-            <button data-bs-target="#km_collapse" data-bs-toggle="collapse">
+            <button data-bs-target=".sachKhuyenMaiData" data-bs-toggle="collapse">
                 Xem thêm
             </button>
         </div>
-
         <!-- show response from ajax request -->
-        <div class="collapse hide w-100 paginator_collapse" id="km_collapse">
+        <div class="collapse hide sachKhuyenMaiData w-100 paginator_collapse" id="km_collapse">
             <nav class="w-100 d-flex justify-content-center mb-3"></nav>
             <div class="response row mb-3 g-1 m-auto"></div>
         </div>
     </div>
 
-    <!-- Sách tiếng việt -->
+    <!-- Sách trong nước -->
     <div class="container bg-light pb-3 " style="min-height: 260px;">
         <div class="bookszoneproduct_header">
             <div class="title">
-                <p>Sách tiếng việt</p>
+                <p>Sách trong nước</p>
             </div>
             <ul class="list">
                 <?php
-                    //Lấy các chủ đề thuộc sách tiếng việt
-                    $Danhmuc_query = "SELECT danhmuc.id, danhmuc.tenDanhMuc FROM danhmuc;";
-                    $Danhmuc_result = mysqli_query($con, $Danhmuc_query);
-                    $str2 = 'Sách Trong Nước'; 
-                    if (mysqli_num_rows($Danhmuc_result) > 0) {
-                        while ($row_danhmuc = mysqli_fetch_assoc($Danhmuc_result)) {
-                            $result = strcmp($row_danhmuc['tenDanhMuc'],$str2); //So sánh và chỉ xuất ra danh mục bằng Sách Tiếng Việt
-                            if($result === 0){ 
-                                $Chude_query = "SELECT chude.id, chude.tenChuDe, chude.idDanhMuc FROM `chude` WHERE chude.idDanhMuc = " . $row_danhmuc['id'];
-                                $Chude_result = mysqli_query($con, $Chude_query);
-                                if (mysqli_num_rows($Chude_result) > 0) {
-                                    while ($row_chude = mysqli_fetch_assoc($Chude_result)) {
-                                        echo'
-                                        <li onclick="loadPage(1, 0,'.$row_chude["id"].', 1, 0, 0, 0, \'#sachtiengviet_collapse\', true);">' . $row_chude['tenChuDe'] . '</li>                        ';
-                                    }
-                                }
-                            }
-                        }
+                    //liet ke tat ca chu de thuoc danh muc sach trong nuoc
+                    $sql = "SELECT cd.id, cd.tenChuDe FROM chude cd, danhmuc dm WHERE cd.idDanhMuc = dm.id AND dm.tenDanhMuc = 'Sách trong nước';";
+                    $result = mysqli_query($con, $sql);
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) { ?>
+                            <li onclick="loadPage({
+                                    page: 1,
+                                    idChuDe: <?= $row['id'] ?>
+                                }, '#sachTrongNuoc_collapse');">
+                                <?= $row['tenChuDe'] ?>
+                            </li>
+                        <?php }
                     }
                 ?>
             </ul>
         </div>
-        <div id="sachtiengviet_carousel" class="carousel container-lg sanpham_carousel mb-3" data-bs-ride="carousel"> 
+        <div id="sachTrongNuoc_carousel" class="carousel collapse show sachTrongNuocData container-lg sanpham_carousel mb-3" data-bs-ride="carousel"> 
             <div class="carousel-inner">
                 <!-- du lieu se do vao day -->
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#sachtiengviet_carousel" data-bs-slide="prev" id="km_prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#sachTrongNuoc_carousel" data-bs-slide="prev" id="km_prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#sachtiengviet_carousel" data-bs-slide="next" id="km_next">
+            <button class="carousel-control-next" type="button" data-bs-target="#sachTrongNuoc_carousel" data-bs-slide="next" id="km_next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
         <div class="more">
-            <button data-bs-target="#sachtiengviet_collapse" data-bs-toggle="collapse">
+            <button data-bs-target=".sachTrongNuocData" data-bs-toggle="collapse">
                 Xem thêm
             </button>
         </div>
         <!-- show response from ajax request -->
-        <div id="sachtiengviet_collapse" class="collapse hide w-100 paginator_collapse" >
+        <div id="sachTrongNuoc_collapse" class="collapse hide sachTrongNuocData w-100 paginator_collapse " >
+            <nav class="w-100 d-flex justify-content-center mb-3"></nav>
             <div class="response row mb-3 g-1 m-auto"></div>
         </div>
     </div>
 
-    <!-- Sách tiếng anh -->
+    <!-- Sách nước ngoài -->
     <div class="container bg-light pb-3 " style="min-height: 260px;">
         <div class="bookszoneproduct_header">
             <div class="title">
-                <p>Sách tiếng anh</p>
+                <p>Sách nước ngoài</p>
             </div>
             <ul class="list">
                 <?php
-                    //Lấy các chủ đề thuộc sách tiếng anh
-                    $Danhmuc_query = "SELECT danhmuc.id, danhmuc.tenDanhMuc FROM danhmuc;";
-                    $Danhmuc_result = mysqli_query($con, $Danhmuc_query);
-                    $str2 = 'Foreign Books'; 
-                    if (mysqli_num_rows($Danhmuc_result) > 0) {
-                        while ($row_danhmuc = mysqli_fetch_assoc($Danhmuc_result)) {
-                            $result = strcmp($row_danhmuc['tenDanhMuc'],$str2); //So sánh và chỉ xuất ra danh mục bằng Sách Tiếng anh
-                            if($result === 0){ 
-                                $Chude_query = "SELECT chude.id, chude.tenChuDe, chude.idDanhMuc FROM `chude` 
-                                                WHERE chude.idDanhMuc = " . $row_danhmuc['id'];
-                                $Chude_result = mysqli_query($con, $Chude_query);
-                                if (mysqli_num_rows($Chude_result) > 0) {
-                                    while ($row_chude = mysqli_fetch_assoc($Chude_result)) { 
-                                        echo '<li  onclick="loadPage(1, 0, '.$row_chude["id"].', '.$row_danhmuc['id'].', 0, 0, 0, \'#sachtienganh_collapse\', true);">'.$row_chude["tenChuDe"].'</li>';
-                                    }
-                                }
-                            }
-                        }
+                    //liet ke tat ca chu de thuoc danh muc foreign books
+                    $sql = "SELECT cd.id, cd.tenChuDe FROM chude cd, danhmuc dm WHERE cd.idDanhMuc = dm.id AND dm.tenDanhMuc = 'Foreign Books';";
+                    $result = mysqli_query($con, $sql);
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) { ?>
+                            <li onclick="loadPage({
+                                    page: 1,
+                                    idChuDe: <?= $row['id'] ?>
+                                }, '#sachNuocNgoai_collapse');">
+                                <?= $row['tenChuDe'] ?>
+                            </li>
+                        <?php }
                     }
                 ?>        
             </ul>
         </div>
-        <div id="sachtienganh_carousel" class="carousel container-lg sanpham_carousel mb-3" data-bs-ride="carousel"> 
+        <div id="sachNuocNgoai_carousel" class="carousel collapse show sachNuocNgoaiData container-lg sanpham_carousel mb-3" data-bs-ride="carousel"> 
             <div class="carousel-inner">
                 <!-- du lieu se do vao day -->
+                
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#sachtienganh_carousel" data-bs-slide="prev" id="km_prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#sachNuocNgoai_carousel" data-bs-slide="prev" id="km_prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#sachtienganh_carousel" data-bs-slide="next" id="km_next">
+            <button class="carousel-control-next" type="button" data-bs-target="#sachNuocNgoai_carousel" data-bs-slide="next" id="km_next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
 
         <div class="more">
-            <button data-bs-target="#sachtienganh_collapse" data-bs-toggle="collapse">
+            <button data-bs-target=".sachNuocNgoaiData" data-bs-toggle="collapse">
                 Xem thêm
             </button>
         </div>
 
         <!-- show response from ajax request -->
-        <div id="sachtienganh_collapse" class="collapse hide w-100 paginator_collapse">
+        <div id="sachNuocNgoai_collapse" class="collapse hide sachNuocNgoaiData w-100 paginator_collapse ">
+            <nav class="w-100 d-flex justify-content-center mb-3"></nav>
             <div class="response row mb-3 g-1 m-auto"></div>
-            
         </div>
     </div>
 </main>

@@ -141,15 +141,25 @@
             </form>
         </div>
     </div>
-    <div id="searchResults"></div>
 
     
-    <div id="pagination"></div>
+    <div id="searchResults"></div>
+<div id="pagination"></div>
     <div class="right_header">
-        <div class="cart">
-            <img src="./Image/shopping-cart.png" alt="" id = "shopping_cart">
+    
+    <div class="dropdown dropdown-menu-end cart">
+        <div class="btn dropdown-toggle" id="btn_showCart" type="button" data-bs-toggle="dropdown">
+            <img src="./Image/shopping-cart.png" alt="">
             <div class="quantity"><span>0</span></div>
         </div>
+        <ul class="dropdown-menu" id="cartContent" style="width: 500px;">
+            <li><button class="dropdown-item" type="button">Action</button></li>
+            <li><button class="dropdown-item" type="button">Another action</button></li>
+            <li><button class="dropdown-item" type="button">Something else here</button></li>
+        </ul>
+    </div>
+
+        
         <div class="btn-group">
             <button type="button" class="btn btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="./Image/user.png" style="margin-left: 0px;">
@@ -157,7 +167,13 @@
             <ul class="dropdown-menu dropdown-menu-end">
                 <?php 
                 if (isset($_SESSION["user"])) { ?>
-                    <div>Hello, <?php echo $_SESSION["user"]->hoTen; ?></div>
+                    <!-- <div>Hello, <?php //echo $_SESSION["user"]->hoTen; ?></div> -->
+                    <li><button type="button" class="btn btn-primary mb-1 dropdown-item" data-bs-toggle="modal" data-bs-target="#thongtintaikhoan">
+                        Thông tin tài khoản
+                    </button></li>
+                    <li><button type="button" class="btn btn-primary mb-1 dropdown-item" data-bs-toggle="modal" data-bs-target="#thongtindonhang">
+                        Thông tin đơn hàng
+                    </button></li>
                     <li><button type='button' class='mb-1 dropdown-item' id='btn_DangXuat'>
                         Đăng xuất 
                     </button></li>
@@ -174,3 +190,4 @@
             </div>
         </div>
 </header>
+
