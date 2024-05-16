@@ -88,7 +88,7 @@ function addToCart(product){
       $.ajax({
         url: './homepage_pages/add_to_cart.php', // URL of your PHP script
         type: 'POST',
-        data: {id: product.idSach, phonenum: phonenum, price:product.giagoc},
+        data: {id: product.idSach, phonenum: phonenum, price:product.giagoc * (100 - product.phanTramKhuyenMai)/100},
         success: function(response) {
             alert(response);
         },
@@ -106,7 +106,7 @@ function addToCart(product){
     localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-//chua dung den
+
 $("#btn_showCart").click(function(){
     //load gio hang
     let cart = JSON.parse(localStorage.getItem("cart"));
