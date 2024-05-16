@@ -84,6 +84,7 @@ function updateAndShowDetailModal(product){
 
 function addToCart(product){
     let cart = JSON.parse(localStorage.getItem("cart"));
+
     let phonenum = document.getElementById("soDienThoai").value;
     if (!cart) cart = [];
     let found = false;
@@ -139,6 +140,7 @@ $("#btn_showCart").click(function(){
     });
 
 });
+
 
 let shopping_cart = document.getElementById('btn_showCart');
 shopping_cart.addEventListener('click' , function(event){
