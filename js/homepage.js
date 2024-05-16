@@ -84,15 +84,28 @@ function updateAndShowDetailModal(product){
 
 function addToCart(product){
     let cart = JSON.parse(localStorage.getItem("cart"));
+
+    let phonenum = document.getElementById("soDienThoai").value;
     if (!cart) cart = [];
     let found = false;
-    cart.forEach(item => {
-        if (item.id == product.id) {
-            item.quantity++;
-            found = true;
+    // cart.forEach(item => {
+    //     if (item.id == product.id) {
+    //         item.quantity++;
+    //         found = true;
+    //     }
+    // });
+    if (!found) {
+      $.ajax({
+        url: './homepage_pages/add_to_cart.php', // URL of your PHP script
+        type: 'POST',
+        data: {id: product.idSach, phonenum: phonenum, price:product.giagoc},
+        success: function(response) {
+            alert(response);
+        },
+        error: function() {
+            alert('An error occurred');
         }
     });
-    if (!found) {
         cart.push({
             id: product.id,
             ten: product.ten,
@@ -129,5 +142,9 @@ $("#btn_showCart").click(function(){
 });
 
 
+let shopping_cart = document.getElementById('btn_showCart');
+shopping_cart.addEventListener('click' , function(event){
+  document.location.href = "./homepage_pages/cart.php";
+})
 
 
