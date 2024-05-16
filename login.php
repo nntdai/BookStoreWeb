@@ -44,8 +44,10 @@
         <img class="mb-4" src="Image/iconBookStore.png" alt="" height="160">
         <h1 class="h3 mb-3 fw-normal">Please sign in to use admin page</h1>
         <form id="frmDangnhap">
+            <!-- xac dinh action va controller -->
             <input type="hidden" name="controller" value="account">
             <input type="hidden" name="action" value="login">
+
             <div class="form-floating">
                 <input type="text" class="form-control mb-3" id="floatingInput" placeholder="Số điện thoại" name="soDienThoai">
                 <label for="floatingInput">Số điện thoại</label>
