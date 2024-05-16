@@ -2,7 +2,7 @@
     class DatabaseConnection{
         private static $db_server = "localhost";
         private static $db_user = "root";
-        private static $db_pass = "";
+        private static $db_pass = "1234";
         private static $db_name = "bookstoreweb";
 
         public static function getInstance() {

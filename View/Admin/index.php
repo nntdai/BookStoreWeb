@@ -8,8 +8,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="/AdminBookStore/Public/Admin/Pages/Home/TaiKhoan.css">
-    <script src="/AdminBookStore/Public/Admin/Pages/Home/js/TaiKhoan/TaiKhoan.js"></script>
+    <link rel="stylesheet" href="/BookStoreWeb/Public/Admin/Pages/Home/TaiKhoan.css">
+    <script src="/BookStoreWeb/Public/Admin/Pages/Home/js/TaiKhoan/TaiKhoan.js"></script>
     <style>
         #container-addBook
 {
@@ -245,17 +245,17 @@ table {
 
                 switch ($controller) {
                     case 'Book':
-                        require "C:/xampp/htdocs/AdminBookStore/Controller/Admin/addBook.php";
-                        require "C:/xampp/htdocs/AdminBookStore/Controller/Admin/listBook.php";
+                        require "C:/xampp/htdocs/BookStoreWeb/Controller/Admin/addBook.php";
+                        require "C:/xampp/htdocs/BookStoreWeb/Controller/Admin/listBook.php";
                         break;
                     case 'role':
-                        require ('C:/xampp/htdocs/AdminBookStore/Controller/Admin/listChucVu.php');
+                        require ('C:/xampp/htdocs/BookStoreWeb/View/Admin/Pages/ChucVu/ChucVu.php');
                         break;
                     case 'account':
-                        require('C:/xampp/htdocs/AdminBookStore/View/Admin/Pages/TaiKhoan/TaiKhoan.php');
+                        require('C:/xampp/htdocs/BookStoreWeb/View/Admin/Pages/TaiKhoan/TaiKhoan.php');
                         break;
                     case 'order' :
-                        require('C:/xampp/htdocs/AdminBookStore/View/Admin/Pages/DonHang/DonHang.php');
+                        require('C:/xampp/htdocs/BookStoreWeb/View/Admin/Pages/DonHang/DonHang.php');
                         break;
                     
                 }

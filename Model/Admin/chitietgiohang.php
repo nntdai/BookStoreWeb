@@ -1,5 +1,5 @@
 <?php
-    include_once("C:/xampp/htdocs/AdminBookStore/Model/Database.php");
+    include_once "C:/xampp/htdocs/BookStoreWeb/Model/Database.php";
     class chitietgiohang_Model extends Database{
         protected $db;
         public function __construct(){

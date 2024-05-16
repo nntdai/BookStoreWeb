@@ -1,5 +1,5 @@
 <?php
-    include_once("C:/xampp/htdocs/AdminBookStore/Model/Admin/chitietgiohang.php");
+    include_once "C:/xampp/htdocs/BookStoreWeb/Model/Admin/chitietgiohang.php";
     class CTGiohang_list{
         private $CTgiohang_Model;
         public function __construct(){

@@ -1,7 +1,7 @@
 function send_data(){
     var formData = new FormData(document.getElementById("add_account"));
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'View/Admin/Pages/TaiKhoan/AddTaiKhoan.php', true);
+    xhr.open('POST', 'Pages/TaiKhoan/AddTaiKhoan.php', true);
     xhr.onreadystatechange = function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
@@ -32,7 +32,7 @@ function send_data(){
 function send_data_update(){
     var formData = new FormData(document.getElementById("update_account"));
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'View/Admin/Pages/TaiKhoan/EditTaiKhoan.php', true);
+    xhr.open('POST', 'Pages/TaiKhoan/EditTaiKhoan.php', true);
     xhr.onreadystatechange = function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
@@ -64,7 +64,7 @@ function send_data_update(){
 function remove(){
     var formData = new FormData(document.getElementById("remove_account"));
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'View/Admin/Pages/TaiKhoan/DeleteTaiKhoan.php', true);
+    xhr.open('POST', 'Pages/TaiKhoan/DeleteTaiKhoan.php', true);
     xhr.onreadystatechange = function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
@@ -329,4 +329,35 @@ function close_remove_account(){
     var data=document.getElementById("khung_hinh_update")
     data.style.display="none"
     window.location.href = 'index.php?controller=account';
+}
+function Search(){
+    var cbb=document.getElementById('LocSearch').value
+    var id=document.getElementById('cboChucVuSearch').value
+    var text=document.getElementById('SearchText').value
+    if(cbb==1 || cbb==2 || cbb==3){
+        if(text==''){
+            if(id==''){
+                window.location.href='index.php?controller=account'
+            }else{
+                window.location.href='index.php?controller=account&send='+id
+            }
+        }else{
+            if(id==''){
+                window.location.href='index.php?controller=account&cbb='+cbb+'&text='+text
+            }else{
+                window.location.href='index.php?controller=account&cbb='+cbb+'&text='+text+'&send='+id
+            }
+        }
+    }
+}
+function remove_text_add(){
+    if(confirm("Bạn có chắc muốn xóa các trường ?")==true){
+        document.getElementById('PhoneText').value=''
+        document.getElementById('MailText').value=''
+        document.getElementById('NameText').value=''
+        document.getElementById('PassText').value=''
+        document.getElementById('PassAgainText').value=''
+        document.getElementById('cboChucVu').value=''
+        alert("Xóa thành công !")
+    }
 }

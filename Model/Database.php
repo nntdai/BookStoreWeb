@@ -6,7 +6,7 @@ class Database
 	private $server = 'localhost';
 	private $dbName = 'bookstoreweb';
 	private $user = 'root';
-	private $password = '';
+	private $password = '1234';
         
         // Hàm kết nối CSDL
 	public function connect()

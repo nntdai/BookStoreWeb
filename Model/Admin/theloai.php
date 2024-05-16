@@ -1,5 +1,5 @@
 <?php
-include_once ('C:/xampp/htdocs/AdminBookStore/Model/Database.php');
+include_once ('C:/xampp/htdocs/BookStoreWeb/Model/Database.php');
 // include_once './Model/Database.php';
 class TheLoaiModel extends Database{
 	protected $db;

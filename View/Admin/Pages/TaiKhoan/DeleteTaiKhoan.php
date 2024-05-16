@@ -1,5 +1,5 @@
 <?php
-    include_once("C:/xampp/htdocs/AdminBookStore/Controller/Admin/listTaiKhoan.php");
+    include_once("C:/xampp/htdocs/BookStoreWeb/Controller/Admin/listTaiKhoan.php");
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $Phonedata=isset($_POST['PhoneText_remove']) ? $_POST['PhoneText_remove'] : '';
         // $Maildata=isset($_POST['MailText_update']) ? $_POST['MailText_update'] : '';

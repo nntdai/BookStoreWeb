@@ -1,6 +1,6 @@
 <?php
-include_once "C:/xampp/htdocs/AdminBookStore/Model/Admin/listBook.php";
-include_once "C:/xampp/htdocs/AdminBookStore/Model/Admin/imageBook.php";
+include_once "C:/xampp/htdocs/BookStoreWeb/Model/Admin/listBook.php";
+include_once "C:/xampp/htdocs/BookStoreWeb/Model/Admin/imageBook.php";
 
 if(isset($_POST['idSachSua']))
 		{

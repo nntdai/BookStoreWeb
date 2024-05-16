@@ -17,14 +17,8 @@
 
 </head>
 <body>
-<?php require "C:/xampp/htdocs/AdminBookStore/View/Admin/validation/addBook.php" ?>
-<?php  
-                        if (isset($alert['success'])) {?>
-                            <div class="form-group alert alert-primary">
-                                <?=$alert['success']?>
-                            </div>
-                        <?php }
-                    ?>
+<?php require "C:/xampp/htdocs/BookStoreWeb/View/Admin/validation/addBook.php" ?>
+
 <div id="container-addBook" >
     <!-- <button id="btnAddBook" class="btn btn-primary">Thêm sách</button>  -->
     <!-- <div id="myModal" class="modal">

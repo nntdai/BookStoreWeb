@@ -75,7 +75,7 @@
 </head>
 
 <body>
-<?php require "C:/xampp/htdocs/AdminBookStore/View/Admin/validation/addBook.php" ?>
+<?php require "C:/xampp/htdocs/BookStoreWeb/View/Admin/validation/addBook.php" ?>
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -125,7 +125,7 @@
         echo "<tr>";
 		echo "<th>";
 		$hinhanhSach = $hinhAnhModel->DanhSachHinhAnh($books['id']);
-		echo '<img class="img-thumbnail" src="/AdminBookStore/'.$hinhanhSach[0]['url'].'"  width="100px" height="20%">';
+		echo '<img class="img-thumbnail" src="/BookStoreWeb/'.$hinhanhSach[0]['url'].'"  width="100px" height="20%">';
 		
 		echo "</th>";
         echo "<th>".$books['id']."</th>";

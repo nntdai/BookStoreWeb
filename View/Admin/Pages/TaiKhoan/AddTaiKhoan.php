@@ -1,5 +1,5 @@
 	<?php
-        include_once("C:/xampp/htdocs/AdminBookStore/Controller/Admin/listTaiKhoan.php");
+        include_once("C:/xampp/htdocs/BookStoreWeb/Controller/Admin/listTaiKhoan.php");
         $TaiKhoan_Model=new TaiKhoanModel();
         $TaiKhoan=$TaiKhoan_Model->get_all();
         if($_SERVER["REQUEST_METHOD"] == "POST"){

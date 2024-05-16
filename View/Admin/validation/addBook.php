@@ -252,7 +252,7 @@ $nguoiDich=$_POST["nguoiDich"];
             $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION); 
         
             if (!file_exists($targetFilePath)) {
-                move_uploaded_file($_FILES["fileToUpload"]["tmp_name"][$key], $targetFilePath);
+                move_uploaded_file($_FILES["fileToUpload"]["tmp_name"][$key], 'C:/xampp/htdocs/BookStoreWeb/'.$targetFilePath);
               }
               
               $sql=$hinhAnhModel->addHinhAnh_Sach($targetFilePath,$idSach);

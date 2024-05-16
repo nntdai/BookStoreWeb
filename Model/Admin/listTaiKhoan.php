@@ -1,5 +1,5 @@
 <?php
-    include_once("C:/xampp/htdocs/AdminBookStore/Model/Database.php");
+    include_once("C:/xampp/htdocs/BookStoreWeb/Model/Database.php");
     class TaiKhoanModel extends Database{
         protected $db;
         public function __construct(){
@@ -16,14 +16,14 @@
             return $list;
         }
         public function addAccount($Phone, $Email, $Name, $Password, $id){
-            $sql="INSERT INTO taikhoan (soDienThoai, email, hoTen, mauKhau, idChucVu, status) VALUES ('$Phone','$Email','$Name','$Password','$id','1')";
+            $sql="INSERT INTO taikhoan (soDienThoai, email, hoTen, matKhau, idChucVu, status) VALUES ('$Phone','$Email','$Name','$Password','$id','1')";
             if(mysqli_query($this->db->conn,$sql)){
                 return true;
             }
             return false;    
         }
         public function updateAccount($Phone, $Email, $Name, $Password, $id){
-            $sql= "UPDATE taikhoan SET email='$Email', hoTen='$Name', mauKhau='$Password', idChucVu='$id' WHERE soDienThoai='$Phone'";
+            $sql= "UPDATE taikhoan SET email='$Email', hoTen='$Name', matKhau='$Password', idChucVu='$id' WHERE soDienThoai='$Phone'";
             if(mysqli_query($this->db->conn,$sql)){
                 return true;
             }
@@ -44,6 +44,69 @@
             }
             return null;
         }
+        public function getByChucVu($ChucVu){
+            $sql="SELECT taikhoan.*, chucvu.ten FROM taikhoan, chucvu WHERE taikhoan.idChucVu=chucvu.id and taikhoan.idChucVu='$ChucVu'";
+            $rs=$this->db->conn->query($sql);
+            $list=array();
+            while($data=$rs->fetch_array()){
+                $list[]=$data;
+            }
+            return $list;
+        }
+        public function getByName($Name){
+            $sql="SELECT taikhoan.*, chucvu.ten FROM taikhoan, chucvu WHERE taikhoan.idChucVu=chucvu.id and taikhoan.hoTen LIKE N"."'"."%".$Name."%'";
+            $rs=$this->db->conn->query($sql);
+            $list=array();
+            while($data=$rs->fetch_array()){
+                $list[]=$data;
+            }
+            return $list;
+        }
+        public function getByEmail($mail){
+            $sql="SELECT taikhoan.*, chucvu.ten FROM taikhoan, chucvu WHERE taikhoan.idChucVu=chucvu.id and taikhoan.email LIKE N"."'"."%".$mail."%'";
+            $rs=$this->db->conn->query($sql);
+            $list=array();
+            while($data=$rs->fetch_array()){
+                $list[]=$data;
+            }
+            return $list;
+        }
+        public function getByPhone_Search($Phone){
+            $sql="SELECT taikhoan.*, chucvu.ten FROM taikhoan, chucvu WHERE taikhoan.idChucVu=chucvu.id and soDienThoai LIKE N"."'"."%".$Phone."%'";
+            $rs=$this->db->conn->query($sql);
+            $list=array();
+            while($data=$rs->fetch_array()){
+                $list[]=$data;
+            }
+            return $list;
+        }
+        public function getByName_CV($Name, $id){
+            $sql="SELECT taikhoan.*, chucvu.ten FROM taikhoan, chucvu WHERE taikhoan.idChucVu=chucvu.id and taikhoan.hoTen LIKE N"."'"."%".$Name."%' and taikhoan.idChucVu='$id'";
+            $rs=$this->db->conn->query($sql);
+            $list=array();
+            while($data=$rs->fetch_array()){
+                $list[]=$data;
+            }
+            return $list;
+        }
+        public function getByEmail_CV($mail, $id){
+            $sql="SELECT taikhoan.*, chucvu.ten FROM taikhoan, chucvu WHERE taikhoan.idChucVu=chucvu.id and taikhoan.email LIKE N"."'"."%".$mail."%' and taikhoan.idChucVu='$id'";
+            $rs=$this->db->conn->query($sql);
+            $list=array();
+            while($data=$rs->fetch_array()){
+                $list[]=$data;
+            }
+            return $list;
+        }
+        public function getByPhone_Search_CV($Phone, $id){
+            $sql="SELECT taikhoan.*, chucvu.ten FROM taikhoan, chucvu WHERE taikhoan.idChucVu=chucvu.id and soDienThoai LIKE N"."'"."%".$Phone."%' and taikhoan.idChucVu='$id'";
+            $rs=$this->db->conn->query($sql);
+            $list=array();
+            while($data=$rs->fetch_array()){
+                $list[]=$data;
+            }
+            return $list;
+        }
         public function Login($username)
 	{
 		$sql = "SELECT * FROM taikhoan,chucvu where taikhoan.idChucVu=chucvu.id and soDienThoai='".$username."'";
@@ -56,6 +119,4 @@
             return null;
         return $list[0];
     }
-        
-
     }

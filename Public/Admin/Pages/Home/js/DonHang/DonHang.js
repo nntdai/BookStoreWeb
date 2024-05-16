@@ -1,7 +1,7 @@
 function send_data_update(){
     var formData = new FormData(document.getElementById("update_order"));
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'View/Admin/Pages/DonHang/EditDonHang.php', true);
+    xhr.open('POST', 'Pages/DonHang/EditDonHang.php', true);
     xhr.onreadystatechange = function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
@@ -33,7 +33,39 @@ function open_Detail(){
     var data=document.getElementById('khung_hinh_chitietgiohang');
     data.style.display="block";
 }
-function close_Detail(){
-    var data=document.getElementById('khung_hinh_chitietgiohang');
-    data.style.display="none";
+function close_Detail(id){
+    window.location.href='index.php?controller=order&madon='+id
+}
+function date(date){
+    var pad = function(num) { return ('00'+num).slice(-2) };
+    var dates = new Date(date);
+    dates = dates.getFullYear()         + '-' +
+        pad(dates.getMonth()+1)  + '-' +
+        pad(dates.getDate())       + ' ' +
+        pad(dates.getHours())      + ':' +
+        pad(dates.getMinutes())    + ':' +
+        pad(dates.getSeconds());
+    return dates;
+}
+function Search(){
+    var startDay=document.getElementById('StartDay').value
+    var endDay=document.getElementById('EndDay').value
+    var stt=document.getElementById('cboSttSearch').value
+    if(stt==""){
+        if(startDay!='' && endDay!=''){
+            window.location.href="index.php?controller=order&startday="+date(startDay)+"&endday="+date(endDay);
+        }else if(startDay!='' && endDay==''){
+            window.location.href="index.php?controller=order&startday="+date(startDay)+"&endday="+date(new Date());
+        }else if(startDay=='' && endDay==''){
+            window.location.href="index.php?controller=order";
+        }
+    }else{
+        if(startDay!='' && endDay!=''){
+            window.location.href="index.php?controller=order&startday="+date(startDay)+"&endday="+date(endDay)+"&status="+stt;
+        }else if(startDay!='' && endDay==''){
+            window.location.href="index.php?controller=order&startday="+date(startDay)+"&endday="+date(new Date())+"&status="+stt;
+        }else if(startDay=='' && endDay==''){
+            window.location.href="index.php?controller=order&status="+stt;
+        }
+    }
 }

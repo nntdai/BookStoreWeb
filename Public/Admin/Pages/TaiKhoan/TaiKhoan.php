@@ -1,5 +1,5 @@
 <?php
-    include_once("C:/xampp/htdocs/AdminBookStore/Controller/Admin/listTaiKhoan.php");
+    include_once("C:/xampp/htdocs/BookStoreWeb/Controller/Admin/listTaiKhoan.php");
     $TaiKhoan_Model=new TaiKhoanModel();
     $TaiKhoan=$TaiKhoan_Model->get_all();
     $ChucVu_Model=new ChucVuModel();
@@ -21,8 +21,8 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <html>
 <head>
-	<link rel="stylesheet" href="C:/xampp/htdocs/AdminBookStore/Public/Admin/Pages/Home/TaiKhoan.css">
-    <script src="C:/xampp/htdocs/AdminBookStore/Public/Admin/Pages/Home/js/TaiKhoan/TaiKhoan.js"></script>
+	<link rel="stylesheet" href="C:/xampp/htdocs/BookStoreWeb/Public/Admin/Pages/Home/TaiKhoan.css">
+    <script src="C:/xampp/htdocs/BookStoreWeb/Public/Admin/Pages/Home/js/TaiKhoan/TaiKhoan.js"></script>
 	<meta charset="UTF-8"/>
 	<title>Tài khoản</title>
 </head>
@@ -31,7 +31,7 @@
     <form method="POST" id="add_account" action="" onsubmit="return false">
         <div id="khung">
             <div style="margin:10px; text-align: center; height:26px">
-                <img src="Image/close.png" height="25px" width="25px" style="float:right" onclick="close_add_account()">
+                <img src="/BookStoreWeb/Image/close.png" height="25px" width="25px" style="float:right" onclick="close_add_account()">
             </div>
                 <h2 style="margin-bottom:30px">Thêm tài khoản</h2>
             <div class="intro">
@@ -83,7 +83,7 @@
     <form method="POST" id="update_account" action="" onsubmit="return false">
         <div id="khung_update">
             <div style="margin:10px; text-align: center; height:26px">
-                <img src="Image/close.png" height="25px" width="25px" style="float:right" onclick="close_update_account()">
+                <img src="/BookStoreWeb/Image/close.png" height="25px" width="25px" style="float:right" onclick="close_update_account()">
             </div>
                 <h2 style="margin-bottom:30px">Cập nhật tài khoản</h2>
             <div class="intro_update">
@@ -140,7 +140,7 @@
     <form method="POST" id="remove_account" action="" onsubmit="return false">
         <div id="khung_remove">
             <div style="margin:10px; text-align: center; height:26px">
-                <img src="Image/close.png" height="25px" width="25px" style="float:right" onclick="close_remove_account()">
+                <img src="/BookStoreWeb/Image/close.png" height="25px" width="25px" style="float:right" onclick="close_remove_account()">
             </div>
                 <h2 style="margin-bottom:30px">Xóa tài khoản</h2>
             <div class="intro_remove">
@@ -190,7 +190,7 @@
         echo "<th>".$tk['soDienThoai']."</th>";
         echo "<th>".$tk['email']."</th>";
         echo "<th>".$tk['hoTen']."</th>";
-        echo "<th>".$tk['mauKhau']."</th>";
+        echo "<th>".$tk['matKhau']."</th>";
         echo "<th>".$tk['ten']."</th>";
         if($tk['status']==1){
             echo "<th>Đang hoạt động</th>";
