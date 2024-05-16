@@ -4,23 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage</title>
-    <link rel="stylesheet" href="./css/cart.css">
-    <link rel="stylesheet" href="./css/homepage.css">
+    <link rel="stylesheet" href="../css/cart.css">
+    <!-- <link rel="stylesheet" href="../css/homepage.css"> -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
     <!-- Header -->
     <?php   
-        require_once("./Model/EntityAccount.php");
+        require_once("../Model/EntityAccount.php");
+        require_once("./database.php");
         session_start();
         if(isset($_SESSION['user'])){
             $user = $_SESSION["user"];
         }
-    require("./homepage_pages/header.php"); ?>
+    // require("./homepage_pages/header.php"); ?>
     <?php 
-        echo'<h style="font:25px bolder; margin-left: 10%;">GIỎ HÀNG</h>
-        <div class="cart_wrapper">
+        echo'<h style="font:25px bolder; margin-left: 10%; margin-top:5%; position:absolute;">GIỎ HÀNG</h>
+        <div class="cart_wrapper" aria-hidden="true">
             <div class="product_panel_wrapper">
                 <div class="top_panel"> 
                     <p style="left: 2%;"> sản phẩm</p>
@@ -43,9 +44,9 @@
                                     $result_img = $con->query($query);
                                     $img = $result_img->fetch_assoc();
                                     $total_price += $chitiet["tongTien"];
-                                    $img_url = $img["url"];
+                                    $img_url = ".".$img["url"];
                                     echo'                
-                                    <div class="product_panel">
+                                    <div class="product_panel" id=id',$chitiet['idSach'],'>
                                     <img src="',$img_url,'" alt="" id="img">
                                     <div class="name">',$chitiet["ten"],'</div>
                                     <div class="prices">
@@ -55,12 +56,12 @@
                                     <div class="quantity">
                                         <div class="counter">
                                             <div class="counter">
-                                            <input type = "number" class="counter-value" value = "',$chitiet["soLuong"],'" min ="0" max = "',$chitiet["soLuongCon"],'"/>
+                                            <input onchange = "quantityChanged(',$chitiet['idSach'],')" type = "number" class="counter-value" value = "',$chitiet["soLuong"],'" min ="1" max = "',$chitiet["soLuongCon"],'"/>
                                         </div>
                                         </div>
                                     </div>
                                     <p class="total">',$chitiet["tongTien"],' đ</p>
-                                    <div class="delete" onclick = "itemDelete(',$chitiet["idSach"],')"><img src="./Image/close.png" alt="" id="img" ></div>
+                                    <div class="delete" onclick = "itemDelete(',$chitiet["idSach"],', ',$cart['id'],')"><img src="../Image/close.png" alt="" id="img" ></div>
                                 </div>                            
                             ';
                                 }
@@ -94,16 +95,17 @@
     <div class="form-group">
         <button id = "cartSubmit">Mua</button>
     </div>
-    <img src="./Image/cross.png" alt="" id="close_img_cart" onclick = "hideOrderPopup()">
+    <img src="../Image/cross.png" alt="" id="close_img_cart" onclick = "hideOrderPopup()">
     </div>
 </div>
 ';
                 $con->close();
     ?>
     <!-- Footer -->
-    <?php   require("./homepage_pages/footer.php"); ?>
+    <?php  
+    // require("./homepage_pages/footer.php"); 
+    ?>
 </body>
-<script src="./js/cart.js"></script>
-<script src="./js/homepage.js"></script>
-<script src="./js/Locvatimkiem.js"></script>
+<script src="../js/cart.js"></script>
+<script src="../js/Locvatimkiem.js"></script>
 </html>

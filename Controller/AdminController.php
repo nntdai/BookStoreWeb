@@ -4,7 +4,7 @@ class AdminController {
     public function get() {
         //idChucVu = 4 la khachhang
         if(isset($_SESSION["user"]) && $_SESSION["user"]->idChucVu != 4) {
-            header("Location: ../AdminBookStore/View/admin/index.php");
+            header("Location: ../AdminBookStore/index.php");
         }
         else if(isset($_SESSION["user"])) {
             echo "<h2>Ban khong co quyen truy cap trang nay</h2><br>";
